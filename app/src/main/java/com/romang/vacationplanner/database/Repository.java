@@ -90,6 +90,19 @@ public class Repository {
         return mAllExcursions;
     }
 
+    //retrieve only excursions associated with a specific vacation id
+    public List<Excursion> getAssociatedExcursions(int vacationID) {
+        databaseExecutor.execute(() -> {
+            mAllExcursions = mExcursionDAO.getAssociatedExcursions(vacationID);
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return mAllExcursions;
+    }
+
     //insert excursion method
     public void insert(Excursion excursion) {
         databaseExecutor.execute(() -> {
