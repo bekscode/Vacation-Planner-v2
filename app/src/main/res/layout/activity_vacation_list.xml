@@ -5,6 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/offWhite"
+    android:foregroundTint="@color/white"
+    app:background="@color/offWhite"
     tools:context=".UI.VacationList">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,7 +17,26 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:clickable="true"
+        app:backgroundTint="@color/darkGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/round_add_24" />
+        app:srcCompat="@drawable/round_add_24"
+        app:tint="@color/white" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vacationListRecyclerView"
+        android:layout_width="362dp"
+        android:layout_height="458dp"
+        android:background="@color/darkGreen"
+        android:scrollIndicators="top|bottom"
+        android:scrollbars="horizontal"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.238" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

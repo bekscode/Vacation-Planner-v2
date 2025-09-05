@@ -9,18 +9,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.romang.vacationplanner.R;
+import com.romang.vacationplanner.database.Repository;
 
 public class VacationDetails extends AppCompatActivity {
+    Repository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_vacation_details);
-        FloatingActionButton fab = findViewById(R.id.fabvacationdetails);
+        FloatingActionButton fab = findViewById(R.id.fabVacationDetails);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
