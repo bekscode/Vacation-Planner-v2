@@ -97,8 +97,9 @@ public class VacationDetails extends AppCompatActivity {
         return true;
     }
 
-    //save functionality
+    //save and update functionality
     public boolean onOptionsItemSelected(MenuItem item) {
+        //save new vacation
         if (item.getItemId() == R.id.vacation_save) {
             Vacation vacation;
             if (vacationID == -1) {
@@ -107,6 +108,12 @@ public class VacationDetails extends AppCompatActivity {
                     vacationID = repository.getmAllVacations().get(repository.getmAllVacations().size() - 1).getVacationID() + 1;
                 vacation = new Vacation(vacationID, editTitle.getText().toString(), editHotel.getText().toString(), editVacationStart.getText().toString(), editVacationEnd.getText().toString());
                 repository.insert(vacation);
+                this.finish();
+            }
+            //update vacation
+            else {
+                vacation = new Vacation(vacationID, editTitle.getText().toString(), editHotel.getText().toString(), editVacationStart.getText().toString(), editVacationEnd.getText().toString());
+                repository.update(vacation);
                 this.finish();
             }
         }
