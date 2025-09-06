@@ -1,5 +1,6 @@
 package com.romang.vacationplanner.UI;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,8 +23,12 @@ import com.romang.vacationplanner.database.Repository;
 import com.romang.vacationplanner.entities.Excursion;
 import com.romang.vacationplanner.entities.Vacation;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class VacationDetails extends AppCompatActivity {
     String title;
@@ -42,6 +47,7 @@ public class VacationDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_vacation_details);
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(
@@ -67,6 +73,9 @@ public class VacationDetails extends AppCompatActivity {
         editHotel.setText(hotel);
         editVacationStart.setText(vacationStart);
         editVacationEnd.setText(vacationEnd);
+
+        editVacationStart.setOnClickListener(v -> showDate(editVacationStart));
+        editVacationEnd.setOnClickListener(v -> showDate(editVacationEnd));
 
         FloatingActionButton fab = findViewById(R.id.fabVacationDetails);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -121,15 +130,37 @@ public class VacationDetails extends AppCompatActivity {
         if (item.getItemId() == R.id.vacation_delete) {
             Vacation vacation;
             vacation = new Vacation(vacationID, editTitle.getText().toString(), editHotel.getText().toString(), editVacationStart.getText().toString(), editVacationEnd.getText().toString());
-            Toast.makeText(VacationDetails.this,"Vacation deleted.", Toast.LENGTH_LONG).show();
+            Toast.makeText(VacationDetails.this, "Vacation deleted.", Toast.LENGTH_LONG).show();
             //delete validation
             if (repository.getmAssociatedExcursions(vacationID).isEmpty()) {
                 repository.delete(vacation);
-            }
-            else {
+            } else {
                 Toast.makeText(VacationDetails.this, "Unable to delete. This vacation has an associated excursion.", Toast.LENGTH_LONG).show();
             }
         }
         return true;
+    }
+
+    //date validation
+    private void showDate(EditText targetedEditText) {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDayOfMonth) -> {
+            String formattedDate = String.format(Locale.US, "%02d/%02d/%02d",selectedMonth + 1, selectedDayOfMonth, selectedYear % 100);
+            targetedEditText.setText(formattedDate);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
+            simpleDateFormat.setLenient(false);
+
+            try {
+                simpleDateFormat.parse(formattedDate);
+                targetedEditText.setError(null);
+            } catch (ParseException e) {
+                targetedEditText.setError("Invalid Date");
+            }
+        }, year, month, dayOfMonth);
+        datePickerDialog.show();
     }
 }
