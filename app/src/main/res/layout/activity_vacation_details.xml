@@ -8,6 +8,15 @@
     android:background="@color/offWhite"
     tools:context=".UI.VacationDetails">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vacation_details"
+        android:textColor="@color/charcoal"
+        app:layout_constraintBottom_toTopOf="@+id/vacationsScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ScrollView
         android:id="@+id/vacationsScrollView"
@@ -43,6 +52,7 @@
                     android:id="@+id/vacationTitleText"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
+                    android:inputType="text"
                     android:hint="@string/vacation_title_hint"
                     android:textColor="#ffffff"
                     android:textColorHint="#ffffff"
@@ -67,6 +77,7 @@
                     android:id="@+id/hotelNameText"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
+                    android:inputType="text"
                     android:hint="@string/hotel_hint"
                     android:textColor="#ffffff"
                     android:textColorHint="#ffffff"

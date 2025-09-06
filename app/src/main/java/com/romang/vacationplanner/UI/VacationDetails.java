@@ -99,7 +99,7 @@ public class VacationDetails extends AppCompatActivity {
 
     //save functionality
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.vacationsave) {
+        if (item.getItemId() == R.id.vacation_save) {
             Vacation vacation;
             if (vacationID == -1) {
                 if (repository.getmAllVacations().isEmpty()) vacationID = 1;
@@ -111,7 +111,7 @@ public class VacationDetails extends AppCompatActivity {
             }
         }
         //delete functionality
-        if (item.getItemId() == R.id.vacationdelete) {
+        if (item.getItemId() == R.id.vacation_delete) {
             Vacation vacation;
             vacation = new Vacation(vacationID, editTitle.getText().toString(), editHotel.getText().toString(), editVacationStart.getText().toString(), editVacationEnd.getText().toString());
             Toast.makeText(VacationDetails.this,"Vacation deleted.", Toast.LENGTH_LONG).show();

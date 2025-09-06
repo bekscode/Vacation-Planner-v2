@@ -62,26 +62,26 @@ public class VacationList extends AppCompatActivity {
             return true;
         }
 
-        @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-            if (item.getItemId() == R.id.sample) {
-                repository=new Repository(getApplication());
-                //Toast.makeText(VacationList.this, "put in sample data", Toast.LENGTH_LONG).show();
-                Vacation vacation=new Vacation(0, "DragonCon", "Westin", "08/28/25", "09/01/25");
-                repository.insert(vacation);
-                vacation=new Vacation(0, "Pigeon Forge", "Margaritaville Island Inn", "07/02/26", "07/05/26");
-                repository.insert(vacation);
-                Excursion excursion= new Excursion(0,"Dollywood", "07/03/26", 1);
-                repository.insert(excursion);
-                excursion=new Excursion(0,"Mini Golf", "07/04/26",1);
-                repository.insert(excursion);
-                return true;
-            }
-            if (item.getItemId()==android.R.id.home){
-                this.finish();
-                return true;
-            }
-            return true;
-
-        }
+//        @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//            if (item.getItemId() == R.id.sample) {
+//                repository=new Repository(getApplication());
+//                //Toast.makeText(VacationList.this, "put in sample data", Toast.LENGTH_LONG).show();
+//                Vacation vacation=new Vacation(0, "DragonCon", "Westin", "08/28/25", "09/01/25");
+//                repository.insert(vacation);
+//                vacation=new Vacation(0, "Pigeon Forge", "Margaritaville Island Inn", "07/02/26", "07/05/26");
+//                repository.insert(vacation);
+//                Excursion excursion= new Excursion(0,"Dollywood", "07/03/26", 1);
+//                repository.insert(excursion);
+//                excursion=new Excursion(0,"Mini Golf", "07/04/26",1);
+//                repository.insert(excursion);
+//                return true;
+//            }
+//            if (item.getItemId()==android.R.id.home){
+//                this.finish();
+//                return true;
+//            }
+//            return true;
+//
+//        }
 }

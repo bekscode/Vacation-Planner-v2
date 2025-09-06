@@ -1,12 +1,13 @@
 <resources>
     <!-- main -->
-    <string name="app_name">VacationPlanner</string>
+    <string name="app_name">Vacation Planner</string>
     <string name="logo_description">brown suitcase logo</string>
     <string name="enter_button">Begin</string>
     <string name="landing_message">The perfect tool to plan your trip and share with friends</string>
     <string name="vacation_planner">Vacation Planner</string>
 
     <!-- vacation details -->
+    <string name="vacation_details">Vacation Details</string>
     <string name="vacation_title_label">Title: </string>
     <string name="vacation_title_hint">Enter a vacation title</string>
     <string name="hotel_label">Hotel: </string>
@@ -17,5 +18,10 @@
 
     <!-- vacation list -->
     <string name="vacation_list">Vacation List</string>
+
+    <!-- menu items -->
+    <string name="vacation_save_menu_item">Save Vacation</string>
+    <string name="vacation_delete_menu_item">Delete Vacation</string>
+    <string name="add_sample_menu_item">Add Sample Vacations</string>
 
 </resources>
