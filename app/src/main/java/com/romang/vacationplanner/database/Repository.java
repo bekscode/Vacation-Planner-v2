@@ -8,7 +8,6 @@ import com.romang.vacationplanner.entities.Excursion;
 import com.romang.vacationplanner.entities.Vacation;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,6 +17,7 @@ public class Repository {
 
     private List<Vacation> mAllVacations;
     private List<Excursion> mAllExcursions;
+    private List<Excursion> mAssociatedExcursions;
 
     private static int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -29,7 +29,7 @@ public class Repository {
     }
 
     //retrieves vacations or creates new database as needed
-    public List<Vacation> getAllVacations() {
+    public List<Vacation> getmAllVacations() {
         databaseExecutor.execute(() -> {
             mAllVacations = mVacationDAO.getAllVacations();
         });
@@ -78,7 +78,7 @@ public class Repository {
     }
 
     //retrieves excursions or creates new database as needed
-    public List<Excursion> getAllExcursions() {
+    public List<Excursion> getmAllExcursions() {
         databaseExecutor.execute(() -> {
             mAllExcursions = mExcursionDAO.getAllExcursions();
         });
@@ -91,16 +91,16 @@ public class Repository {
     }
 
     //retrieve only excursions associated with a specific vacation id
-    public List<Excursion> getAssociatedExcursions(int vacationID) {
+    public List<Excursion> getmAssociatedExcursions(int vacationID) {
         databaseExecutor.execute(() -> {
-            mAllExcursions = mExcursionDAO.getAssociatedExcursions(vacationID);
+            mAssociatedExcursions = mExcursionDAO.getAssociatedExcursions(vacationID);
         });
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return mAllExcursions;
+        return mAssociatedExcursions;
     }
 
     //insert excursion method

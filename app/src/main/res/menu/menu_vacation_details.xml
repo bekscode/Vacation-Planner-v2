@@ -3,5 +3,7 @@
 
     <item android:title="Save Vacation"
         android:id="@+id/vacationsave"/>
+    <item android:title="Delete Vacation"
+        android:id="@+id/vacationdelete"/>
 
 </menu>

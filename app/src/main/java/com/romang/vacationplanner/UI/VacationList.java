@@ -32,7 +32,7 @@ public class VacationList extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_vacation_list);
 
-        FloatingActionButton fab = findViewById(R.id.fabvacationlist);
+        FloatingActionButton fab = findViewById(R.id.fabVacationList);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +43,7 @@ public class VacationList extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.vacationListRecyclerView);
         repository = new Repository(getApplication());
-        List<Vacation> allVacations = repository.getAllVacations();
+        List<Vacation> allVacations = repository.getmAllVacations();
         final VacationAdapter vacationAdapter = new VacationAdapter(this);
         recyclerView.setAdapter(vacationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/darkGreen"
         android:fontFamily="serif"
-        android:text="Enter"
+        android:text="Begin"
         android:textColor="@color/offWhite"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
