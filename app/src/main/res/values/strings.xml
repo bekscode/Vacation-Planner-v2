@@ -1,3 +1,21 @@
 <resources>
+    <!-- main -->
     <string name="app_name">VacationPlanner</string>
+    <string name="logo_description">brown suitcase logo</string>
+    <string name="enter_button">Begin</string>
+    <string name="landing_message">The perfect tool to plan your trip and share with friends</string>
+    <string name="vacation_planner">Vacation Planner</string>
+
+    <!-- vacation details -->
+    <string name="vacation_title_label">Title: </string>
+    <string name="vacation_title_hint">Enter a vacation title</string>
+    <string name="hotel_label">Hotel: </string>
+    <string name="hotel_hint">Enter a hotel name</string>
+    <string name="vacation_start_label">Start Date: </string>
+    <string name="vacation_end_label">End Date: </string>
+    <string name="date_hint">MM/DD/YY</string>
+
+    <!-- vacation list -->
+    <string name="vacation_list">Vacation List</string>
+
 </resources>

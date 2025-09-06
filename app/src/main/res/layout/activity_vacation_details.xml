@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:text="Title: "
+                    android:text="@string/vacation_title_label"
                     android:textColor="#ffffff"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -43,7 +43,7 @@
                     android:id="@+id/vacationTitleText"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:hint="Enter a vacation title"
+                    android:hint="@string/vacation_title_hint"
                     android:textColor="#ffffff"
                     android:textColorHint="#ffffff"
                     android:textSize="14sp" />
@@ -58,18 +58,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:text="Hotel: "
+                    android:text="@string/hotel_label"
                     android:textColor="#ffffff"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-
-                    />
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/hotelNameText"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:hint="Enter a hotel name"
+                    android:hint="@string/hotel_hint"
                     android:textColor="#ffffff"
                     android:textColorHint="#ffffff"
                     android:textSize="14sp" />
@@ -84,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:text="Start Date: "
+                    android:text="@string/vacation_start_label"
                     android:textColor="#ffffff"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -92,8 +90,9 @@
                 <EditText
                     android:id="@+id/vacationStartText"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:hint="MM/DD/YYYY"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:hint="@string/date_hint"
                     android:textColor="#ffffff"
                     android:textColorHint="#ffffff"
                     android:textSize="14sp" />
@@ -108,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:text="End Date: "
+                    android:text="@string/vacation_end_label"
                     android:textColor="#ffffff"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -116,8 +115,9 @@
                 <EditText
                     android:id="@+id/vacationEndText"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:hint="MM/DD/YYYY"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:hint="@string/date_hint"
                     android:textColor="#ffffff"
                     android:textColorHint="#ffffff"
                     android:textSize="14sp" />
