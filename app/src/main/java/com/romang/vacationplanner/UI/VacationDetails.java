@@ -49,7 +49,6 @@ public class VacationDetails extends AppCompatActivity {
         setContentView(R.layout.activity_vacation_details);
 
 
-
         ViewCompat.setOnApplyWindowInsetsListener(
 
                 findViewById(R.id.main), (v, insets) ->
@@ -76,6 +75,13 @@ public class VacationDetails extends AppCompatActivity {
 
         editVacationStart.setOnClickListener(v -> showDate(editVacationStart));
         editVacationEnd.setOnClickListener(v -> showDate(editVacationEnd));
+
+        //pre-populate calendar with today's date
+        Calendar calendar = Calendar.getInstance();
+        String today = String.format(Locale.US, "%02d/%02d/%02d", calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR));
+        editVacationStart.setText(today);
+        editVacationEnd.setText(today);
+
 
         FloatingActionButton fab = findViewById(R.id.fabVacationDetails);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +147,7 @@ public class VacationDetails extends AppCompatActivity {
         return true;
     }
 
-    //date validation
+    //date format validation
     private void showDate(EditText targetedEditText) {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -149,18 +155,41 @@ public class VacationDetails extends AppCompatActivity {
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDayOfMonth) -> {
-            String formattedDate = String.format(Locale.US, "%02d/%02d/%02d",selectedMonth + 1, selectedDayOfMonth, selectedYear % 100);
+            String formattedDate = String.format(Locale.US, "%02d/%02d/%02d", selectedMonth + 1, selectedDayOfMonth, selectedYear % 100);
             targetedEditText.setText(formattedDate);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
             simpleDateFormat.setLenient(false);
 
+            //start and end date validation
             try {
-                simpleDateFormat.parse(formattedDate);
+                Calendar selectedDate = Calendar.getInstance();
+                selectedDate.setTime(simpleDateFormat.parse(formattedDate));
+
+                Calendar startDate = Calendar.getInstance();
+                startDate.setTime(simpleDateFormat.parse(editVacationStart.getText().toString()));
+
+                Calendar endDate = Calendar.getInstance();
+                endDate.setTime(simpleDateFormat.parse(editVacationEnd.getText().toString()));
+
+                if (targetedEditText == editVacationEnd) {
+                    if (selectedDate.before(startDate)) {
+                        targetedEditText.setError("End Date must come after Start Date.");
+                        Toast.makeText(this, "End Date must come after Start Date.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+
                 targetedEditText.setError(null);
+                targetedEditText.setText(formattedDate);
+
+                //catch any unexpected errors
             } catch (ParseException e) {
                 targetedEditText.setError("Invalid Date");
+                Toast.makeText(this, "Invalid Date", Toast.LENGTH_LONG).show();
             }
-        }, year, month, dayOfMonth);
+        },
+                year, month, dayOfMonth
+        );
         datePickerDialog.show();
     }
 }
