@@ -23,5 +23,6 @@
     <string name="vacation_save_menu_item">Save Vacation</string>
     <string name="vacation_delete_menu_item">Delete Vacation</string>
     <string name="add_sample_menu_item">Add Sample Vacations</string>
+    <string name="vacation_notify_menu_item">Notify</string>
 
 </resources>

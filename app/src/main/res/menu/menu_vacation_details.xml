@@ -5,5 +5,7 @@
         android:id="@+id/vacation_save"/>
     <item android:title="@string/vacation_delete_menu_item"
         android:id="@+id/vacation_delete"/>
+    <item android:title="@string/vacation_notify_menu_item"
+        android:id="@+id/vacation_notify"/>
 
 </menu>

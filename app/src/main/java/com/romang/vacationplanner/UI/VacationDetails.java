@@ -1,6 +1,9 @@
 package com.romang.vacationplanner.UI;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -144,8 +148,45 @@ public class VacationDetails extends AppCompatActivity {
                 Toast.makeText(VacationDetails.this, "Unable to delete. This vacation has an associated excursion.", Toast.LENGTH_LONG).show();
             }
         }
+
+        //notify functionality for vacation
+        if (item.getItemId() == R.id.vacation_notify) {
+            String dateVacationStart = editVacationStart.getText().toString();
+            String dateVacationEnd = editVacationEnd.getText().toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
+            Date notifyVacationStart = null;
+            Date notifyVacationEnd = null;
+            try {
+                notifyVacationStart = sdf.parse(dateVacationStart);
+                notifyVacationEnd = sdf.parse(dateVacationEnd);
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+            }
+            //vacation start notify
+            if (notifyVacationStart != null) {
+                Long startTrigger = notifyVacationStart.getTime();
+                Intent intent = new Intent(VacationDetails.this, MyReceiver.class);
+                String vacationStartNotify = "Your vacation: " + title + " is starting";
+                intent.putExtra("notification", vacationStartNotify);
+                PendingIntent startSender = PendingIntent.getBroadcast(VacationDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_ONE_SHOT);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, startTrigger, startSender);
+            }
+            //vacation end notify
+            if (notifyVacationEnd != null) {
+                Long startTrigger = notifyVacationEnd.getTime();
+                Intent intent = new Intent(VacationDetails.this, MyReceiver.class);
+                String vacationEndNotify = "Your vacation: " + title + " is ending";
+                intent.putExtra("notification", vacationEndNotify);
+                PendingIntent endSender = PendingIntent.getBroadcast(VacationDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_ONE_SHOT);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, startTrigger, endSender);
+            }
+        }
         return true;
     }
+
 
     //date format validation
     private void showDate(EditText targetedEditText) {
@@ -191,5 +232,6 @@ public class VacationDetails extends AppCompatActivity {
                 year, month, dayOfMonth
         );
         datePickerDialog.show();
+
     }
 }
