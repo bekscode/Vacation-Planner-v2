@@ -97,7 +97,7 @@ public class VacationDetails extends AppCompatActivity {
             }
         });
 
-        //excursion recycler view
+        //excursion recycler view for showing associated excursions
         RecyclerView recyclerView = findViewById(R.id.vacationDetailsRecyclerView);
         repository = new Repository(getApplication());
         final ExcursionAdapter excursionAdapter = new ExcursionAdapter(this);
