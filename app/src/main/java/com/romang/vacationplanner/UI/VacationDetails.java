@@ -40,6 +40,7 @@ public class VacationDetails extends AppCompatActivity {
     String vacationStart;
     String vacationEnd;
     int vacationID;
+    String vacationShare;
     EditText editTitle;
     EditText editHotel;
     EditText editVacationStart;
@@ -149,7 +150,7 @@ public class VacationDetails extends AppCompatActivity {
             }
         }
 
-        //notify functionality for vacation
+        //alert functionality for vacation
         if (item.getItemId() == R.id.vacation_notify) {
             String dateVacationStart = editVacationStart.getText().toString();
             String dateVacationEnd = editVacationEnd.getText().toString();
@@ -159,30 +160,47 @@ public class VacationDetails extends AppCompatActivity {
             try {
                 notifyVacationStart = sdf.parse(dateVacationStart);
                 notifyVacationEnd = sdf.parse(dateVacationEnd);
-            }
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
-            //vacation start notify
+            //vacation start alert
             if (notifyVacationStart != null) {
                 Long startTrigger = notifyVacationStart.getTime();
                 Intent intent = new Intent(VacationDetails.this, MyReceiver.class);
                 String vacationStartNotify = "Your vacation: " + title + " is starting";
                 intent.putExtra("notification", vacationStartNotify);
-                PendingIntent startSender = PendingIntent.getBroadcast(VacationDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent startSender = PendingIntent.getBroadcast(VacationDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_ONE_SHOT);
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, startTrigger, startSender);
             }
-            //vacation end notify
+            //vacation end alert
             if (notifyVacationEnd != null) {
                 Long startTrigger = notifyVacationEnd.getTime();
                 Intent intent = new Intent(VacationDetails.this, MyReceiver.class);
                 String vacationEndNotify = "Your vacation: " + title + " is ending";
                 intent.putExtra("notification", vacationEndNotify);
-                PendingIntent endSender = PendingIntent.getBroadcast(VacationDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent endSender = PendingIntent.getBroadcast(VacationDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_ONE_SHOT);
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, startTrigger, endSender);
             }
+        }
+
+        //vacation share
+        if (item.getItemId() == R.id.vacation_share){
+            vacationShare = "Vacation Title: " + editTitle.getText().toString() +
+                            "\nHotel: " + editHotel.getText().toString() +
+                            "\nStart Date: " + editVacationStart.getText().toString() +
+                            "\nEnd Date: " + editVacationEnd.getText().toString();
+            Intent sentIntent = new Intent();
+            sentIntent.setAction(Intent.ACTION_SEND);
+            sentIntent.putExtra(Intent.EXTRA_TITLE, editTitle.getText().toString() + " Details");
+            sentIntent.putExtra(Intent.EXTRA_TEXT, vacationShare);
+            sentIntent.setType("text/plain");
+            Intent shareIntent = Intent.createChooser(sentIntent, null);
+            startActivity(shareIntent);
+            return true;
+
+
         }
         return true;
     }

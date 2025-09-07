@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/vacation_save_menu_item"
+    <item
+        android:title="@string/vacation_save_menu_item"
         android:id="@+id/vacation_save"/>
-    <item android:title="@string/vacation_delete_menu_item"
+    <item
+        android:title="@string/vacation_delete_menu_item"
         android:id="@+id/vacation_delete"/>
-    <item android:title="@string/vacation_notify_menu_item"
+    <item
+        android:title="@string/vacation_notify_menu_item"
         android:id="@+id/vacation_notify"/>
+    <item
+        android:title="@string/vacation_share_menu_item"
+        android:id="@+id/vacation_share"/>
 
 </menu>
