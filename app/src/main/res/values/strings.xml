@@ -7,7 +7,7 @@
     <string name="vacation_planner">Vacation Planner</string>
 
     <!-- vacation details -->
-    <string name="vacation_details">Vacation Details</string>
+    <string name="vacation_details">My Vacation</string>
     <string name="vacation_title_label">Title: </string>
     <string name="vacation_title_hint">Enter a vacation title</string>
     <string name="hotel_label">Hotel: </string>
@@ -17,14 +17,14 @@
     <string name="date_hint">MM/DD/YY</string>
 
     <!-- excursion details -->
-    <string name="excursion_details">Excursion Details</string>
+    <string name="excursion_details">My Excursion</string>
     <string name="excursion_title">Title: </string>
     <string name="excursion_title_hint">Enter an excursion title</string>
     <string name="excursion_date">Date: </string>
 
 
     <!-- vacation list -->
-    <string name="vacation_list">Vacation List</string>
+    <string name="vacation_list">Vacations</string>
 
     <!-- menu items -->
     <string name="vacation_save_menu_item">Save Vacation</string>

@@ -250,6 +250,5 @@ public class VacationDetails extends AppCompatActivity {
                 year, month, dayOfMonth
         );
         datePickerDialog.show();
-
     }
 }

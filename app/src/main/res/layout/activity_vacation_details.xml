@@ -52,8 +52,8 @@
                     android:id="@+id/vacationTitleText"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:inputType="text"
                     android:hint="@string/vacation_title_hint"
+                    android:inputType="text"
                     android:textColor="#ffffff"
                     android:textColorHint="#ffffff"
                     android:textSize="14sp" />
@@ -77,8 +77,8 @@
                     android:id="@+id/hotelNameText"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:inputType="text"
                     android:hint="@string/hotel_hint"
+                    android:inputType="text"
                     android:textColor="#ffffff"
                     android:textColorHint="#ffffff"
                     android:textSize="14sp" />
@@ -146,10 +146,10 @@
         android:layout_marginBottom="20dp"
         android:clickable="true"
         app:backgroundTint="@color/darkGreen"
-        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/round_add_24" />
+        app:srcCompat="@drawable/round_add_24"
+        app:tint="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacationDetailsRecyclerView"

@@ -67,7 +67,7 @@ public class ExcursionDetails extends AppCompatActivity {
                 if (repository.getmAllExcursions().isEmpty())
                     excursionID = 1;
                 else
-                    excursionID = repository.getmAllExcursions().get(repository.getmAllExcursions().size() -1).getExcursionID() + 1;
+                    excursionID = repository.getmAllExcursions().get(repository.getmAllExcursions().size() - 1).getExcursionID() + 1;
                 excursion = new Excursion(excursionID, editExcursionTitle.getText().toString(), editExcursionDate.getText().toString(), vacationID);
                 repository.insert(excursion);
                 this.finish();
