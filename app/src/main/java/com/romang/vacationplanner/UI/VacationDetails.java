@@ -104,7 +104,7 @@ public class VacationDetails extends AppCompatActivity {
         recyclerView.setAdapter(excursionAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Excursion> filteredExcursions = new ArrayList<>();
-        for (Excursion e : repository.getmAllExcursions()) {
+        for (Excursion e : repository.getmAssociatedExcursions(vacationID)) {
             if (e.getVacationID() == vacationID) filteredExcursions.add(e);
         }
         excursionAdapter.setExcursions(filteredExcursions);
@@ -142,14 +142,16 @@ public class VacationDetails extends AppCompatActivity {
         if (item.getItemId() == R.id.vacation_delete) {
             Vacation vacation;
             vacation = new Vacation(vacationID, editTitle.getText().toString(), editHotel.getText().toString(), editVacationStart.getText().toString(), editVacationEnd.getText().toString());
-            Toast.makeText(VacationDetails.this, "Vacation deleted.", Toast.LENGTH_LONG).show();
             //delete validation
             if (repository.getmAssociatedExcursions(vacationID).isEmpty()) {
                 repository.delete(vacation);
+                Toast.makeText(VacationDetails.this, "Vacation deleted.", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(VacationDetails.this, "Unable to delete. This vacation has an associated excursion.", Toast.LENGTH_LONG).show();
             }
+            this.finish();
         }
+
 
         //alert functionality for vacation
         if (item.getItemId() == R.id.vacation_notify) {
@@ -250,5 +252,16 @@ public class VacationDetails extends AppCompatActivity {
                 year, month, dayOfMonth
         );
         datePickerDialog.show();
+
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<Excursion> allExcursions = repository.getmAllExcursions();
+        RecyclerView recyclerView = findViewById(R.id.vacationDetailsRecyclerView);
+        final ExcursionAdapter excursionAdapter = new ExcursionAdapter(this);
+        recyclerView.setAdapter(excursionAdapter);
+        excursionAdapter.setExcursions(allExcursions);
     }
 }

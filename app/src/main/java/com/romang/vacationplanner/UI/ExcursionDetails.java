@@ -57,7 +57,6 @@ public class ExcursionDetails extends AppCompatActivity {
         return true;
     }
 
-
     //save and update functionality
     public boolean onOptionsItemSelected(MenuItem item) {
         //save new excursion
@@ -80,7 +79,7 @@ public class ExcursionDetails extends AppCompatActivity {
             }
         }
 
-        //delete functionality
+        //delete excursion
         if (item.getItemId() == R.id.excursion_delete) {
             Excursion excursion;
             excursion = new Excursion(excursionID, editExcursionTitle.getText().toString(), editExcursionDate.getText().toString(), vacationID);

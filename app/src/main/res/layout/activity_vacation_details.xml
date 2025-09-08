@@ -11,9 +11,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="200dp"
         android:text="@string/vacation_details"
         android:textColor="@color/charcoal"
-        app:layout_constraintBottom_toTopOf="@+id/vacationsScrollView"
+        app:layout_constraintBottom_toBottomOf="@+id/vacationsScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
@@ -21,7 +22,7 @@
     <ScrollView
         android:id="@+id/vacationsScrollView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:background="@color/darkGreen"
         app:layout_constraintBottom_toTopOf="@+id/vacationDetailsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -159,8 +160,19 @@
         app:background="@color/lightGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vacationsScrollView" />
+
+    <TextView
+        android:id="@+id/associatedExcursionsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Associated Excursions"
+        android:textColor="@color/charcoal"
+        app:layout_constraintBottom_toTopOf="@+id/vacationDetailsRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
