@@ -66,8 +66,8 @@ public class VacationDetails extends AppCompatActivity {
 
         editTitle = findViewById(R.id.vacationTitleText);
         editHotel = findViewById(R.id.hotelNameText);
-        editVacationStart = findViewById(R.id.vacationStartText);
-        editVacationEnd = findViewById(R.id.vacationEndText);
+        editVacationStart = findViewById(R.id.vacationStartInput);
+        editVacationEnd = findViewById(R.id.vacationEndInput);
         title = getIntent().getStringExtra("title");
         hotel = getIntent().getStringExtra("hotel");
         vacationID = getIntent().getIntExtra("id", -1);
@@ -137,6 +137,7 @@ public class VacationDetails extends AppCompatActivity {
                 this.finish();
             }
         }
+
         //delete functionality
         if (item.getItemId() == R.id.vacation_delete) {
             Vacation vacation;
@@ -163,6 +164,7 @@ public class VacationDetails extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
             //vacation start alert
             if (notifyVacationStart != null) {
                 Long startTrigger = notifyVacationStart.getTime();
@@ -200,11 +202,9 @@ public class VacationDetails extends AppCompatActivity {
             startActivity(shareIntent);
             return true;
 
-
         }
         return true;
     }
-
 
     //date format validation
     private void showDate(EditText targetedEditText) {

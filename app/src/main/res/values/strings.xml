@@ -16,6 +16,13 @@
     <string name="vacation_end_label">End Date: </string>
     <string name="date_hint">MM/DD/YY</string>
 
+    <!-- excursion details -->
+    <string name="excursion_details">Excursion Details</string>
+    <string name="excursion_title">Title: </string>
+    <string name="excursion_title_hint">Enter an excursion title</string>
+    <string name="excursion_date">Date: </string>
+
+
     <!-- vacation list -->
     <string name="vacation_list">Vacation List</string>
 
@@ -25,5 +32,7 @@
     <string name="add_sample_menu_item">Add Sample Vacations</string>
     <string name="vacation_notify_menu_item">Notify</string>
     <string name="vacation_share_menu_item">Share</string>
+    <string name="excursion_save_menu_item">Save Excursion</string>
+    <string name="excursion_delete_menu_item">Delete Excursion</string>
 
 </resources>
