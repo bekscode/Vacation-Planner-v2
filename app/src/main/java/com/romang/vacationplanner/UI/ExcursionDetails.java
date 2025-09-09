@@ -1,6 +1,10 @@
 package com.romang.vacationplanner.UI;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +21,11 @@ import com.romang.vacationplanner.R;
 import com.romang.vacationplanner.database.Repository;
 import com.romang.vacationplanner.entities.Excursion;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ExcursionDetails extends AppCompatActivity {
     String excursionTitle;
@@ -52,6 +60,11 @@ public class ExcursionDetails extends AppCompatActivity {
 
         editExcursionDate.setOnClickListener(v -> showDate(editExcursionDate));
         repository = new Repository(getApplication());
+
+        //pre-populate calendar with today's date
+        Calendar calendar = Calendar.getInstance();
+        String today = String.format(Locale.US, "%02d/%02d/%02d", calendar.get(Calendar.MONTH) +1, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR));
+        editExcursionDate.setText(today);
 
     }
 
@@ -90,6 +103,27 @@ public class ExcursionDetails extends AppCompatActivity {
             Toast.makeText(ExcursionDetails.this, "Excursion Deleted.", Toast.LENGTH_LONG).show();
             repository.delete(excursion);
             this.finish();
+        }
+
+        //alert functionality for excursion
+        if(item.getItemId() == R.id.excursion_notify) {
+            String dateExcursionStart = editExcursionDate.getText().toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
+            Date notifyExcursionStart = null;
+            try {
+                notifyExcursionStart = sdf.parse(dateExcursionStart);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (notifyExcursionStart != null) {
+                Long trigger = notifyExcursionStart.getTime();
+                Intent intent = new Intent(ExcursionDetails.this, MyReceiver.class);
+                String excursionNotify = "Your excursion: " + editExcursionTitle.getText().toString() + " is today";
+                intent.putExtra("notification", excursionNotify);
+                PendingIntent sender = PendingIntent.getBroadcast(ExcursionDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_ONE_SHOT);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+            }
         }
 
         return true;

@@ -34,5 +34,6 @@
     <string name="vacation_share_menu_item">Share</string>
     <string name="excursion_save_menu_item">Save Excursion</string>
     <string name="excursion_delete_menu_item">Delete Excursion</string>
+    <string name="excursion_notify_menu_item">Notify</string>
 
 </resources>

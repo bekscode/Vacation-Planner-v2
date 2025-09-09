@@ -7,4 +7,7 @@
     <item
         android:title="@string/excursion_delete_menu_item"
         android:id="@+id/excursion_delete" />
+    <item
+        android:title="@string/excursion_notify_menu_item"
+        android:id="@+id/excursion_notify" />
 </menu>
