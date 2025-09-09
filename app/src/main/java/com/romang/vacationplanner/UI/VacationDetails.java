@@ -195,19 +195,47 @@ public class VacationDetails extends AppCompatActivity {
 
         //vacation share
         if (item.getItemId() == R.id.vacation_share) {
-            vacationShare = "Vacation Title: " + editTitle.getText().toString() +
-                    "\nHotel: " + editHotel.getText().toString() +
-                    "\nStart Date: " + editVacationStart.getText().toString() +
-                    "\nEnd Date: " + editVacationEnd.getText().toString();
-            Intent sentIntent = new Intent();
-            sentIntent.setAction(Intent.ACTION_SEND);
-            sentIntent.putExtra(Intent.EXTRA_TITLE, editTitle.getText().toString() + " Details");
-            sentIntent.putExtra(Intent.EXTRA_TEXT, vacationShare);
-            sentIntent.setType("text/plain");
-            Intent shareIntent = Intent.createChooser(sentIntent, null);
-            startActivity(shareIntent);
-            return true;
+            Vacation vacation = repository.getVacationById(vacationID);
+            if (vacation != null) {
+                StringBuilder shareBuilder = new StringBuilder();
+                shareBuilder.append("Vacation Title: ").append(vacation.getVacationTitle())
+                        .append("\nHotel: ").append(vacation.getVacationHotel())
+                        .append("\nStart Date: ").append(vacation.getVacationStart())
+                        .append("\nEnd Date: ").append(vacation.getVacationEnd());
 
+                List<Excursion> excursions = repository.getmAssociatedExcursions(vacationID);
+                if (excursions != null && !excursions.isEmpty()) {
+                    shareBuilder.append("\n\nAssociated Excursions: ");
+                    for (Excursion excursion : excursions) {
+                        shareBuilder.append("\n ")
+                                .append(excursion.getExcursionTitle())
+                                .append(" on ")
+                                .append(excursion.getExcursionDate());
+                    }
+                } else {
+                    shareBuilder.append("\n\n No excursions scheduled for this vacation.");
+                }
+
+                vacationShare = shareBuilder.toString();
+
+                Intent sentIntent = new Intent();
+                sentIntent.setAction(Intent.ACTION_SEND);
+                sentIntent.putExtra(Intent.EXTRA_TITLE, vacation.getVacationTitle() + " Details");
+                sentIntent.putExtra(Intent.EXTRA_TEXT, vacationShare);
+                sentIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sentIntent, null);
+                startActivity(shareIntent);
+            } else {
+                Toast.makeText(this, "No vacation found.", Toast.LENGTH_LONG).show();
+            }
+            return true;
+        }
+
+        //back button navigation
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
         }
         return true;
     }
