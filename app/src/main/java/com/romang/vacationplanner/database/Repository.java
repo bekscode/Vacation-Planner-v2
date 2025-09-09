@@ -22,6 +22,15 @@ public class Repository {
     private static int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
+    public Vacation getVacationById(int vacationID) {
+        for (Vacation v : getmAllVacations()) {
+            if (v.getVacationID() == vacationID) {
+                return v;
+            }
+        }
+        return null;
+    }
+
     public Repository(Application application) {
         VacationDatabaseBuilder db = VacationDatabaseBuilder.getDatabase(application);
         mVacationDAO = db.vacationDAO();

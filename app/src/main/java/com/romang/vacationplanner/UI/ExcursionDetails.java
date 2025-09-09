@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.romang.vacationplanner.R;
 import com.romang.vacationplanner.database.Repository;
 import com.romang.vacationplanner.entities.Excursion;
+import com.romang.vacationplanner.entities.Vacation;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +34,8 @@ public class ExcursionDetails extends AppCompatActivity {
     String excursionDate;
     int excursionID;
     int vacationID;
+    String vacationStart;
+    String vacationEnd;
     EditText editExcursionTitle;
     EditText editExcursionDate;
     Repository repository;
@@ -55,6 +59,8 @@ public class ExcursionDetails extends AppCompatActivity {
         excursionDate = getIntent().getStringExtra("date");
         excursionID = getIntent().getIntExtra("id", -1);
         vacationID = getIntent().getIntExtra("vacationID", -1);
+        vacationStart = getIntent().getStringExtra("vacationStart");
+        vacationEnd = getIntent().getStringExtra("vacationEnd");
         editExcursionTitle.setText(excursionTitle);
         editExcursionDate.setText(excursionDate);
 
@@ -62,9 +68,11 @@ public class ExcursionDetails extends AppCompatActivity {
         repository = new Repository(getApplication());
 
         //pre-populate calendar with today's date
+        if (vacationID == -1) {
         Calendar calendar = Calendar.getInstance();
         String today = String.format(Locale.US, "%02d/%02d/%02d", calendar.get(Calendar.MONTH) +1, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR));
         editExcursionDate.setText(today);
+        }
 
     }
 
@@ -78,6 +86,36 @@ public class ExcursionDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //save new excursion
         if (item.getItemId() == R.id.excursion_save) {
+            String excursionDate = editExcursionDate.getText().toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
+
+            //excursion date validation
+            try {
+                Date dateCheck = sdf.parse(excursionDate);
+                Vacation vacation = repository.getVacationById(vacationID);
+                if (vacation == null) {
+                    Toast.makeText(this, "Vacation not found", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+
+                Date vacationStartCheck = sdf.parse(vacation.getVacationStart());
+                Date vacationEndCheck = sdf.parse(vacation.getVacationEnd());
+
+                if (dateCheck.before(vacationStartCheck)) {
+                    Toast.makeText(this, "Excursion cannot occur before vacation begins", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                if (dateCheck.after(vacationEndCheck)) {
+                    Toast.makeText(this, "Excursion cannot occur after vacation ends", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+
+            }
+            catch (ParseException e) {
+                Toast.makeText(this, "Invalid date", Toast.LENGTH_LONG).show();
+                return true;
+            }
+
             Excursion excursion;
             if (excursionID == -1) {
                 if (repository.getmAllExcursions().isEmpty())
@@ -129,7 +167,7 @@ public class ExcursionDetails extends AppCompatActivity {
         return true;
     }
 
-    //date validation
+    //date format validation
     private void showDate(EditText targetedEditText) {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
