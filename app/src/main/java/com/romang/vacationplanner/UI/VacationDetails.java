@@ -93,6 +93,7 @@ public class VacationDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VacationDetails.this, ExcursionDetails.class);
+                intent.putExtra("vacationID", vacationID);
                 startActivity(intent);
             }
         });
@@ -258,10 +259,10 @@ public class VacationDetails extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        List<Excursion> allExcursions = repository.getmAllExcursions();
+        List<Excursion> associatedExcursions = repository.getmAssociatedExcursions(vacationID);
         RecyclerView recyclerView = findViewById(R.id.vacationDetailsRecyclerView);
         final ExcursionAdapter excursionAdapter = new ExcursionAdapter(this);
         recyclerView.setAdapter(excursionAdapter);
-        excursionAdapter.setExcursions(allExcursions);
+        excursionAdapter.setExcursions(associatedExcursions);
     }
 }

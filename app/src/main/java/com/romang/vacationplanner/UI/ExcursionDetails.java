@@ -1,5 +1,6 @@
 package com.romang.vacationplanner.UI;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.romang.vacationplanner.R;
 import com.romang.vacationplanner.database.Repository;
 import com.romang.vacationplanner.entities.Excursion;
+
+import java.util.Calendar;
 
 public class ExcursionDetails extends AppCompatActivity {
     String excursionTitle;
@@ -43,10 +46,11 @@ public class ExcursionDetails extends AppCompatActivity {
         excursionTitle = getIntent().getStringExtra("title");
         excursionDate = getIntent().getStringExtra("date");
         excursionID = getIntent().getIntExtra("id", -1);
-        vacationID = getIntent().getIntExtra("vacationID", 1);
+        vacationID = getIntent().getIntExtra("vacationID", -1);
         editExcursionTitle.setText(excursionTitle);
         editExcursionDate.setText(excursionDate);
 
+        editExcursionDate.setOnClickListener(v -> showDate(editExcursionDate));
         repository = new Repository(getApplication());
 
     }
@@ -89,5 +93,24 @@ public class ExcursionDetails extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    //date validation
+    private void showDate(EditText targetedEditText) {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDayOfMonth)-> {
+            String formattedDate = String.format("%02d/%02d/%02d", selectedMonth + 1, selectedDayOfMonth, selectedYear % 100);
+            targetedEditText.setText(formattedDate);
+            targetedEditText.setError(null);
+
+            if (!formattedDate.matches(("\\d{2}/\\d{2}/\\d{2}"))) {
+                targetedEditText.setError("Invalid date.");
+            }
+        }, year, month, dayOfMonth);
+        datePickerDialog.show();
+
     }
 }

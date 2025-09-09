@@ -81,7 +81,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:hint="@string/date_hint"
-                    android:inputType="text"
+                    android:inputType="date"
+                    android:focusable="false"
+                    android:clickable="true"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="14sp" />

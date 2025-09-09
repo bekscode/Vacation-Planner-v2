@@ -152,6 +152,8 @@
         app:srcCompat="@drawable/round_add_24"
         app:tint="@color/white" />
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacationDetailsRecyclerView"
         android:layout_width="match_parent"
