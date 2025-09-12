@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.romang.vacationplanner.R;
 import com.romang.vacationplanner.entities.Excursion;
-import com.romang.vacationplanner.entities.Vacation;
 
 import java.util.List;
 
@@ -20,8 +19,10 @@ public class ExcursionAdapter extends RecyclerView.Adapter<ExcursionAdapter.Excu
     private List<Excursion> mExcursions;
     private final Context context;
     private final LayoutInflater mInflater;
+
     private final String vacationStart;
     private final String vacationEnd;
+
 
     public class ExcursionViewHolder extends RecyclerView.ViewHolder {
         private final TextView excursionItemView;
@@ -37,11 +38,11 @@ public class ExcursionAdapter extends RecyclerView.Adapter<ExcursionAdapter.Excu
                     int position = getAbsoluteAdapterPosition();
                     final Excursion current = mExcursions.get(position);
                     Intent intent = new Intent(context, ExcursionDetails.class);
-                    intent.putExtra("id", current.getExcursionID());
+                    intent.putExtra("excursionID", current.getExcursionID());
                     intent.putExtra("title", current.getExcursionTitle());
                     intent.putExtra("excursionDate", current.getExcursionDate());
-                    intent.putExtra("vacationStart", ((VacationDetails)context).getStartDate());
-                    intent.putExtra("vacationEnd", ((VacationDetails)context).getEndDate());
+                    intent.putExtra("vacationStart", ((VacationDetails) context).getStartDate());
+                    intent.putExtra("vacationEnd", ((VacationDetails) context).getEndDate());
                     intent.putExtra("vacationID", current.getVacationID());
                     context.startActivity(intent);
                 }
@@ -71,8 +72,7 @@ public class ExcursionAdapter extends RecyclerView.Adapter<ExcursionAdapter.Excu
             String date = current.getExcursionDate();
             holder.excursionItemView.setText(title);
             holder.excursionItemView2.setText(date);
-        }
-        else {
+        } else {
             holder.excursionItemView.setText("No excursion title");
         }
     }
@@ -87,8 +87,7 @@ public class ExcursionAdapter extends RecyclerView.Adapter<ExcursionAdapter.Excu
     public int getItemCount() {
         if (mExcursions != null) {
             return mExcursions.size();
-        }
-        else {
+        } else {
             return 0;
         }
     }
