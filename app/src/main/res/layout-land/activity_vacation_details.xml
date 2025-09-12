@@ -11,8 +11,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="410dp"
-        android:layout_height="251dp"
+        android:layout_width="370dp"
+        android:layout_height="234dp"
         android:background="@color/darkGreen"
         android:orientation="vertical"
         android:padding="10dp"
@@ -20,8 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -29,7 +28,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="107dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:padding="10dp"
                 android:text="@string/vacation_title_label"
@@ -39,7 +38,7 @@
 
             <EditText
                 android:id="@+id/vacationTitleText"
-                android:layout_width="332dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:hint="@string/vacation_title_hint"
@@ -55,7 +54,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="107dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:padding="10dp"
                 android:text="@string/hotel_label"
@@ -81,7 +80,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="107dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:padding="10dp"
                 android:text="@string/vacation_start_label"
@@ -90,7 +89,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@id/vacationStartInput"
+                android:id="@+id/vacationStartInput"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -98,10 +97,9 @@
                 android:focusable="false"
                 android:hint="@string/date_hint"
                 android:inputType="date"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
                 android:textSize="14sp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -110,7 +108,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="107dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:padding="10dp"
                 android:text="@string/vacation_end_label"
@@ -127,10 +125,9 @@
                 android:focusable="false"
                 android:hint="@string/date_hint"
                 android:inputType="date"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
                 android:textSize="14sp" />
-
         </LinearLayout>
 
     </LinearLayout>
@@ -139,18 +136,19 @@
         android:id="@+id/associatedExcursionsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginBottom="18dp"
         android:text="Associated Excursions"
         android:textColor="@color/charcoal"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/vacationDetailsRecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.962" />
+        app:layout_constraintEnd_toEndOf="@+id/vacationDetailsRecyclerView"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="@+id/vacationDetailsRecyclerView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabVacationDetails"
@@ -167,14 +165,17 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacationDetailsRecyclerView"
-        android:layout_width="410dp"
-        android:layout_height="204dp"
+        android:layout_width="324dp"
+        android:layout_height="179dp"
+        android:layout_marginStart="16dp"
         android:background="@color/lightGreen"
         android:nestedScrollingEnabled="false"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

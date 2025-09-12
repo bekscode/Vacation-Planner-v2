@@ -11,8 +11,8 @@
 
     <ScrollView
         android:id="@+id/excursionScrollView"
-        android:layout_width="414dp"
-        android:layout_height="106dp"
+        android:layout_width="732dp"
+        android:layout_height="107dp"
         android:background="@color/darkGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
