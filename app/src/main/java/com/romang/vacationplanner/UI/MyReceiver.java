@@ -20,13 +20,15 @@ public class MyReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Toast.makeText(context, intent.getStringExtra("notification"), Toast.LENGTH_LONG).show();
         createNotificationChannel(context, channel_id);
+
         Notification n = new NotificationCompat.Builder(context, channel_id)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentText(intent.getStringExtra("key"))
-                .setContentTitle("Notification Test").build();
+                .setContentText(intent.getStringExtra("notification"))
+                .setContentTitle("Notification Test")
+                .build();
+
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID++, n);
-
     }
 
     private void createNotificationChannel(Context context, String CHANNEL_ID) {

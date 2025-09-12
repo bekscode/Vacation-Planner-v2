@@ -11,18 +11,20 @@ import com.romang.vacationplanner.dao.VacationDAO;
 import com.romang.vacationplanner.entities.Excursion;
 import com.romang.vacationplanner.entities.Vacation;
 
-@Database(entities = {Vacation.class, Excursion.class}, version = 5, exportSchema = false)
+@Database(entities = {Vacation.class, Excursion.class}, version = 10, exportSchema = false)
 public abstract class VacationDatabaseBuilder extends RoomDatabase {
     public abstract VacationDAO vacationDAO();
+
     public abstract ExcursionDAO excursionDAO();
+
     private static volatile VacationDatabaseBuilder INSTANCE;
 
     //Asynchronous database builder
-    static VacationDatabaseBuilder getDatabase(final Context context){
-        if(INSTANCE==null){
-            synchronized (VacationDatabaseBuilder.class){
-                if(INSTANCE==null){
-                    INSTANCE= Room.databaseBuilder(context.getApplicationContext(), VacationDatabaseBuilder.class, "MyVacationDatabase.db")
+    static VacationDatabaseBuilder getDatabase(final Context context) {
+        if (INSTANCE == null) {
+            synchronized (VacationDatabaseBuilder.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), VacationDatabaseBuilder.class, "MyVacationDatabase.db")
                             .fallbackToDestructiveMigration()
                             .build();
                 }

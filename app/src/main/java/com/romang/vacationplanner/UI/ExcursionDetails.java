@@ -46,10 +46,10 @@ public class ExcursionDetails extends AppCompatActivity {
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main),
                 (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+                    Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                    v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                    return insets;
+                });
 
         repository = new Repository(getApplication());
 
@@ -164,7 +164,7 @@ public class ExcursionDetails extends AppCompatActivity {
         }
 
         //alert functionality for excursion
-        if(item.getItemId() == R.id.excursion_notify) {
+        if (item.getItemId() == R.id.excursion_notify) {
             String dateExcursionStart = editExcursionDate.getText().toString();
 
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
@@ -210,10 +210,10 @@ public class ExcursionDetails extends AppCompatActivity {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this, (
-                        view,
-                        selectedYear,
-                        selectedMonth,
-                        selectedDayOfMonth)-> {
+                view,
+                selectedYear,
+                selectedMonth,
+                selectedDayOfMonth) -> {
 
             String formattedDate = String.format(Locale.US,
                     "%02d/%02d/%02d",

@@ -3,9 +3,7 @@ package com.romang.vacationplanner.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.romang.vacationplanner.R;
 import com.romang.vacationplanner.database.Repository;
-import com.romang.vacationplanner.entities.Excursion;
 import com.romang.vacationplanner.entities.Vacation;
 
 import java.util.List;
@@ -56,21 +53,21 @@ public class VacationList extends AppCompatActivity {
         });
     }
 
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu){
-            getMenuInflater().inflate(R.menu.menu_vacation_list, menu);
-            return true;
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_vacation_list, menu);
+        return true;
+    }
 
-        @Override
-        protected void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
         List<Vacation> allVacations = repository.getmAllVacations();
         RecyclerView recyclerView = findViewById(R.id.vacationListRecyclerView);
         final VacationAdapter vacationAdapter = new VacationAdapter(this);
         recyclerView.setAdapter(vacationAdapter);
         vacationAdapter.setVacations(allVacations);
-        }
+    }
 
 //        @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {

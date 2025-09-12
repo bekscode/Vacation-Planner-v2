@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="@string/vacation_save_menu_item"
-        android:id="@+id/vacation_save"/>
+        android:id="@+id/vacation_save"
+        android:title="@string/vacation_save_menu_item" />
     <item
-        android:title="@string/vacation_delete_menu_item"
-        android:id="@+id/vacation_delete"/>
+        android:id="@+id/vacation_delete"
+        android:title="@string/vacation_delete_menu_item" />
     <item
-        android:title="@string/vacation_notify_menu_item"
-        android:id="@+id/vacation_notify"/>
+        android:id="@+id/vacation_notify"
+        android:title="@string/vacation_notify_menu_item" />
     <item
-        android:title="@string/vacation_share_menu_item"
-        android:id="@+id/vacation_share"/>
+        android:id="@+id/vacation_share"
+        android:title="@string/vacation_share_menu_item" />
 
 </menu>

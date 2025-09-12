@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="@string/excursion_save_menu_item"
-        android:id="@+id/excursion_save" />
+        android:id="@+id/excursion_save"
+        android:title="@string/excursion_save_menu_item" />
     <item
-        android:title="@string/excursion_delete_menu_item"
-        android:id="@+id/excursion_delete" />
+        android:id="@+id/excursion_delete"
+        android:title="@string/excursion_delete_menu_item" />
     <item
-        android:title="@string/excursion_notify_menu_item"
-        android:id="@+id/excursion_notify" />
+        android:id="@+id/excursion_notify"
+        android:title="@string/excursion_notify_menu_item" />
 </menu>

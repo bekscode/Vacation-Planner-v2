@@ -32,7 +32,7 @@
         <activity
             android:name=".UI.VacationList"
             android:exported="false"
-            android:label="Vacation List"
+            android:label="My Vacations"
             android:parentActivityName=".UI.MainActivity" />
         <activity
             android:name=".UI.MainActivity"

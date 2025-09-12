@@ -14,7 +14,6 @@ import java.util.concurrent.Executors;
 public class Repository {
     private VacationDAO mVacationDAO;
     private ExcursionDAO mExcursionDAO;
-
     private List<Vacation> mAllVacations;
     private List<Excursion> mAllExcursions;
     private List<Excursion> mAssociatedExcursions;

@@ -29,7 +29,10 @@ public interface ExcursionDAO {
     List<Excursion> getAllExcursions();
 
     //Get all excursions that are associated with a specific
-
     @Query("SELECT * FROM EXCURSIONS WHERE vacationID=:vacation ORDER BY excursionID ASC")
-    List<Excursion> getAssociatedExcursions(int vacation)
-;}
+    List<Excursion> getAssociatedExcursions(int vacation);
+
+    //Get excursion by ID
+    @Query("SELECT * FROM EXCURSIONS WHERE excursionID = :id LIMIT 1")
+    Excursion getExcursionById(int id);
+}
