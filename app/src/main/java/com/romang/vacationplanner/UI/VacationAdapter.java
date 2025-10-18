@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.romang.vacationplanner.R;
 import com.romang.vacationplanner.entities.Vacation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.VacationViewHolder> {
     private final Context context;
     private List<Vacation> mVacations;
+    private List<Vacation> mVacationsFull;
     private final LayoutInflater mInflater;
 
 
@@ -78,6 +80,23 @@ public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.Vacati
 
     public void setVacations(List<Vacation> vacations) {
         mVacations = vacations;
+        mVacationsFull = new ArrayList<>(vacations);
+        notifyDataSetChanged();
+    }
+
+    // method for filtering list
+    public void filter(String query) {
+        if (query == null || query.isEmpty()) {
+            mVacations = new ArrayList<>(mVacationsFull);
+        } else {
+            List<Vacation> filteredList = new ArrayList<>();
+            for (Vacation vacation : mVacationsFull) {
+                if (vacation.getVacationTitle().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(vacation);
+                }
+            }
+            mVacations = filteredList;
+        }
         notifyDataSetChanged();
     }
 }

@@ -23,27 +23,33 @@
         app:srcCompat="@drawable/round_add_24"
         app:tint="@color/white" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="700dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vacationListRecyclerView"
+        android:layout_width="411dp"
+        android:layout_height="575dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/darkGreen"
+        android:padding="10dp"
+        android:scrollIndicators="top|bottom"
+        android:scrollbars="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/fabVacationList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10sp"
+        android:iconifiedByDefault="false"
+        android:padding="10dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toTopOf="@+id/vacationListRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:queryHint="Search Vacations..." />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/vacationListRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/darkGreen"
-            android:padding="10dp"
-            android:scrollIndicators="top|bottom"
-            android:scrollbars="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main" />
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

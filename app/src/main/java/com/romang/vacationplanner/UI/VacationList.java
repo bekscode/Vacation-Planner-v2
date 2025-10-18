@@ -19,9 +19,11 @@ import com.romang.vacationplanner.database.Repository;
 import com.romang.vacationplanner.entities.Vacation;
 
 import java.util.List;
+import androidx.appcompat.widget.SearchView;
 
 public class VacationList extends AppCompatActivity {
     private Repository repository;
+    private VacationAdapter vacationAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +43,25 @@ public class VacationList extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.vacationListRecyclerView);
         repository = new Repository(getApplication());
         List<Vacation> allVacations = repository.getmAllVacations();
-        final VacationAdapter vacationAdapter = new VacationAdapter(this);
+        vacationAdapter = new VacationAdapter(this);
         recyclerView.setAdapter(vacationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         vacationAdapter.setVacations(allVacations);
+
+        // SearchView for filtering vacations
+        SearchView searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                vacationAdapter.filter(newText);
+                return true;
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -64,7 +81,7 @@ public class VacationList extends AppCompatActivity {
         super.onResume();
         List<Vacation> allVacations = repository.getmAllVacations();
         RecyclerView recyclerView = findViewById(R.id.vacationListRecyclerView);
-        final VacationAdapter vacationAdapter = new VacationAdapter(this);
+        vacationAdapter = new VacationAdapter(this);
         recyclerView.setAdapter(vacationAdapter);
         vacationAdapter.setVacations(allVacations);
     }
