@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:addStatesFromChildren="true"
     android:background="@color/offWhite"
     android:foregroundTint="@color/white"
     app:background="@color/offWhite"
@@ -23,20 +24,30 @@
         app:srcCompat="@drawable/round_add_24"
         app:tint="@color/white" />
 
+    <Button
+        android:id="@+id/reportButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate Report"
+        android:backgroundTint="@color/darkGreen"
+        android:textColor="@color/offWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.878" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacationListRecyclerView"
-        android:layout_width="411dp"
-        android:layout_height="575dp"
-        android:layout_marginBottom="4dp"
-        android:background="@color/darkGreen"
-        android:padding="10dp"
-        android:scrollIndicators="top|bottom"
-        android:scrollbars="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/fabVacationList"
+        android:layout_width="371dp"
+        android:layout_height="429dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"

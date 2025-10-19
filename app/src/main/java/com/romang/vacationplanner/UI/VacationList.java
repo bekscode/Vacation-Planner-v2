@@ -21,6 +21,9 @@ import com.romang.vacationplanner.entities.Vacation;
 import java.util.List;
 import androidx.appcompat.widget.SearchView;
 
+import java.util.concurrent.Executors;
+import android.widget.Button;
+
 public class VacationList extends AppCompatActivity {
     private Repository repository;
     private VacationAdapter vacationAdapter;
@@ -48,6 +51,16 @@ public class VacationList extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         vacationAdapter.setVacations(allVacations);
 
+        Button generateButton = findViewById(R.id.reportButton);
+        generateButton.setOnClickListener(v -> {
+            Executors.newSingleThreadExecutor().execute(() -> {
+                List<Vacation> vacations = repository.getmAllVacations();
+
+                generateReport(vacations);
+            });
+        });
+
+
         // SearchView for filtering vacations
         SearchView searchView = findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -62,6 +75,23 @@ public class VacationList extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void generateReport(List<Vacation> vacations) {
+        StringBuilder reportBuilder = new StringBuilder();
+        reportBuilder.append("Vacation Title, Start Date, End Date\n");
+
+        for (Vacation vacation : vacations) {
+            reportBuilder.append(vacation.getVacationTitle()).append(", ")
+                    .append(vacation.getVacationStart()).append(", ")
+                    .append(vacation.getVacationEnd()).append("\n");
+        }
+
+        String reportText = reportBuilder.toString();
+        Intent intent = new Intent(this, ReportActivity.class);
+        intent.putExtra("reportText", reportText);
+
+        runOnUiThread(() -> startActivity(intent));
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -83,6 +113,7 @@ public class VacationList extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.vacationListRecyclerView);
         vacationAdapter = new VacationAdapter(this);
         recyclerView.setAdapter(vacationAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         vacationAdapter.setVacations(allVacations);
     }
 
