@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import com.romang.vacationplanner.R;
 import com.romang.vacationplanner.database.Repository;
 import com.romang.vacationplanner.entities.Excursion;
@@ -85,8 +86,8 @@ public class VacationDetails extends AppCompatActivity {
         editVacationEnd.setOnClickListener(v -> showDate(editVacationEnd));
 
 
-        FloatingActionButton fab = findViewById(R.id.fabVacationDetails);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button btn = findViewById(R.id.addExcursionButton);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String start = editVacationStart.getText().toString();

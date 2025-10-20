@@ -34,8 +34,8 @@ public class VacationList extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_vacation_list);
 
-        FloatingActionButton fab = findViewById(R.id.fabVacationList);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button addVacation = findViewById(R.id.addVacationButton);
+        addVacation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VacationList.this, VacationDetails.class);

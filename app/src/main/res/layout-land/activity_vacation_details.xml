@@ -140,7 +140,7 @@
         android:layout_marginEnd="63dp"
         android:layout_marginBottom="18dp"
         android:text="Associated Excursions"
-        android:textColor="@color/charcoal"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/vacationDetailsRecyclerView"

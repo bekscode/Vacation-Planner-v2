@@ -8,173 +8,146 @@
     android:background="@color/offWhite"
     tools:context=".UI.VacationDetails">
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="410dp"
-        android:layout_height="251dp"
-        android:background="@color/darkGreen"
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutVacationTitle"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        app:boxBackgroundColor="@color/white"
+        android:hint="Vacation Title"
+        app:boxStrokeColor="@color/lightGreen"
+        app:hintTextColor="@color/lightGreen"
+        app:cursorColor="@color/lightGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="107dp"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:text="@string/vacation_title_label"
-                android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/vacationTitleText"
-                android:layout_width="332dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:hint="@string/vacation_title_hint"
-                android:inputType="text"
-                android:textColor="#ffffff"
-                android:textColorHint="#ffffff"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/vacationTitleText"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="107dp"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:text="@string/hotel_label"
-                android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/hotelNameText"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:hint="@string/hotel_hint"
-                android:inputType="text"
-                android:textColor="#ffffff"
-                android:textColorHint="#ffffff"
-                android:textSize="14sp" />
-        </LinearLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutHotel"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:boxBackgroundColor="@color/white"
+        android:hint="Hotel Name"
+        app:boxStrokeColor="@color/lightGreen"
+        app:hintTextColor="@color/lightGreen"
+        app:cursorColor="@color/lightGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutVacationTitle">
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/hotelNameText"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="107dp"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:text="@string/vacation_start_label"
-                android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutStartDate"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="2dp"
+        app:boxBackgroundColor="@color/white"
+        android:hint="Start Date"
+        app:boxStrokeColor="@color/lightGreen"
+        app:hintTextColor="@color/lightGreen"
+        app:cursorColor="@color/lightGreen"
+        app:layout_constraintEnd_toStartOf="@+id/textInputLayoutEndDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutHotel">
 
-            <EditText
-                android:id="@id/vacationStartInput"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="false"
-                android:hint="@string/date_hint"
-                android:inputType="date"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/vacationStartInput"
+            android:inputType="date"
+            android:clickable="true"
+            android:focusable="false"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="107dp"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:text="@string/vacation_end_label"
-                android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutEndDate"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="32dp"
+        app:boxBackgroundColor="@color/white"
+        android:hint="End Date"
+        app:boxStrokeColor="@color/lightGreen"
+        app:hintTextColor="@color/lightGreen"
+        app:cursorColor="@color/lightGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayoutStartDate"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutHotel">
 
-            <EditText
-                android:id="@+id/vacationEndInput"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="false"
-                android:hint="@string/date_hint"
-                android:inputType="date"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/vacationEndInput"
+            android:inputType="date"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/associatedExcursionsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="136dp"
         android:text="Associated Excursions"
-        android:textColor="@color/charcoal"
+        android:textColor="@color/darkGreen"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/vacationDetailsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.962" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEndDate" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabVacationDetails"
+    <Button
+        android:id="@+id/addExcursionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        app:backgroundTint="@color/darkGreen"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/darkGreen"
+        android:drawableEnd="@drawable/round_add_24"
+        android:fontFamily="sans-serif"
+        android:text="Add Excursion"
+        android:textAlignment="center"
+        android:textColor="@color/offWhite"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/round_add_24"
-        app:tint="@color/white" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacationDetailsRecyclerView"
         android:layout_width="410dp"
         android:layout_height="204dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="126dp"
         android:background="@color/lightGreen"
         android:nestedScrollingEnabled="false"
         android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/addExcursionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/associatedExcursionsLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@ import com.romang.vacationplanner.dao.VacationDAO;
 import com.romang.vacationplanner.entities.Excursion;
 import com.romang.vacationplanner.entities.Vacation;
 
-@Database(entities = {Vacation.class, Excursion.class}, version = 10, exportSchema = false)
+@Database(entities = {Vacation.class, Excursion.class}, version = 11, exportSchema = false)
 public abstract class VacationDatabaseBuilder extends RoomDatabase {
     public abstract VacationDAO vacationDAO();
 

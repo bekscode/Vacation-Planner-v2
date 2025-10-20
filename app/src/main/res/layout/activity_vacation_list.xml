@@ -11,56 +11,80 @@
     app:background="@color/offWhite"
     tools:context=".UI.VacationList">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabVacationList"
+
+    <Button
+        android:id="@+id/addVacationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:drawableEnd="@drawable/round_add_24"
+        android:fontFamily="sans-serif"
+        android:text="Add Vacation"
+        android:textAlignment="center"
+        android:textColor="@color/offWhite"
+        android:textSize="14sp"
         app:backgroundTint="@color/darkGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/round_add_24"
-        app:tint="@color/white" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/reportButton"
+        app:layout_constraintTop_toBottomOf="@+id/vacationListRecyclerView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/reportButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Generate Report"
-        android:backgroundTint="@color/darkGreen"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:drawableEnd="@drawable/generate_icon"
+        android:fontFamily="sans-serif"
+        android:text="Create Report"
+        android:textAlignment="center"
         android:textColor="@color/offWhite"
+        android:textSize="14sp"
+        app:backgroundTint="@color/darkGreen"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintEnd_toStartOf="@+id/addVacationButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.878" />
-
+        app:layout_constraintTop_toBottomOf="@+id/vacationListRecyclerView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacationListRecyclerView"
-        android:layout_width="371dp"
-        android:layout_height="429dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.255" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         android:elevation="10sp"
         android:iconifiedByDefault="false"
         android:padding="10dp"
         app:iconifiedByDefault="false"
         app:layout_constraintBottom_toTopOf="@+id/vacationListRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:queryHint="Search Vacations..." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

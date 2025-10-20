@@ -9,74 +9,51 @@
     tools:context=".UI.ExcursionDetails">
 
 
-    <ScrollView
-        android:id="@+id/excursionScrollView"
-        android:layout_width="414dp"
-        android:layout_height="106dp"
-        android:background="@color/darkGreen"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutExcursionTitle"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Excursion Title"
+        app:boxBackgroundColor="@color/white"
+        app:boxStrokeColor="@color/lightGreen"
+        app:hintTextColor="@color/lightGreen"
+        app:cursorColor="@color/lightGreen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/excursionTitleText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutExcursionDate"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="233dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="32dp"
+        android:hint="Start Date"
+        app:boxBackgroundColor="@color/white"
+        app:boxStrokeColor="@color/lightGreen"
+        app:hintTextColor="@color/lightGreen"
+        app:cursorColor="@color/lightGreen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutExcursionTitle">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:padding="10dp"
-                    android:text="@string/excursion_title"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/excursionDateInput"
+            android:inputType="date"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/excursionTitleText"
-                    android:layout_width="356dp"
-                    android:layout_height="50dp"
-                    android:hint="@string/excursion_title_hint"
-                    android:inputType="text"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:padding="10dp"
-                    android:text="@string/excursion_date"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/excursionDateInput"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:hint="@string/date_hint"
-                    android:inputType="date"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
