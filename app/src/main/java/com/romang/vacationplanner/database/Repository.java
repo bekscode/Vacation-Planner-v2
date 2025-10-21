@@ -3,8 +3,10 @@ package com.romang.vacationplanner.database;
 import android.app.Application;
 
 import com.romang.vacationplanner.dao.ExcursionDAO;
+import com.romang.vacationplanner.dao.UserDAO;
 import com.romang.vacationplanner.dao.VacationDAO;
 import com.romang.vacationplanner.entities.Excursion;
+import com.romang.vacationplanner.entities.User;
 import com.romang.vacationplanner.entities.Vacation;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.concurrent.Executors;
 public class Repository {
     private VacationDAO mVacationDAO;
     private ExcursionDAO mExcursionDAO;
+    private UserDAO mUserDAO;
     private List<Vacation> mAllVacations;
     private List<Excursion> mAllExcursions;
     private List<Excursion> mAssociatedExcursions;
@@ -34,6 +37,7 @@ public class Repository {
         VacationDatabaseBuilder db = VacationDatabaseBuilder.getDatabase(application);
         mVacationDAO = db.vacationDAO();
         mExcursionDAO = db.excursionDAO();
+        mUserDAO = db.userDAO();
     }
 
     //retrieves vacations or creates new database as needed
@@ -146,4 +150,18 @@ public class Repository {
             throw new RuntimeException(e);
         }
     }
+    //insert user method
+    public void insertUser(User user) {
+        databaseExecutor.execute(() -> mUserDAO.insert(user));
+
+    }
+
+    public User getUserByUsername(String username) {
+        return mUserDAO.getUserByUsername(username);
+    }
+
+    public List<User> getAllUsers() {
+        return mUserDAO.getAllUsers();
+    }
+
 }
