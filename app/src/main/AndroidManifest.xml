@@ -50,8 +50,7 @@
         <activity
             android:name=".UI.VacationList"
             android:exported="false"
-            android:label="My Vacations"
-            android:parentActivityName=".UI.MainActivity" />
+            android:label="My Vacations" />
         <activity
             android:name=".UI.MainActivity"
             android:exported="true">

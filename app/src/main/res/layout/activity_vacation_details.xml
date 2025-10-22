@@ -18,19 +18,20 @@
         android:layout_marginEnd="32dp"
         app:boxBackgroundColor="@color/white"
         android:hint="Vacation Title"
-        app:boxStrokeColor="@color/lightGreen"
-        app:hintTextColor="@color/lightGreen"
-        app:cursorColor="@color/lightGreen"
+        app:boxStrokeColor="@color/darkGreen"
+        app:hintTextColor="@color/darkGreen"
+        app:cursorColor="@color/darkGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/vacationTitleText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/vacationTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -42,20 +43,19 @@
         android:layout_marginEnd="32dp"
         app:boxBackgroundColor="@color/white"
         android:hint="Hotel Name"
-        app:boxStrokeColor="@color/lightGreen"
-        app:hintTextColor="@color/lightGreen"
-        app:cursorColor="@color/lightGreen"
+        app:boxStrokeColor="@color/darkGreen"
+        app:hintTextColor="@color/darkGreen"
+        app:cursorColor="@color/darkGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutVacationTitle">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/hotelNameText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/hotelNameText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutStartDate"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -65,20 +65,20 @@
         android:layout_marginEnd="2dp"
         app:boxBackgroundColor="@color/white"
         android:hint="Start Date"
-        app:boxStrokeColor="@color/lightGreen"
-        app:hintTextColor="@color/lightGreen"
-        app:cursorColor="@color/lightGreen"
+        app:boxStrokeColor="@color/darkGreen"
+        app:hintTextColor="@color/darkGreen"
+        app:cursorColor="@color/darkGreen"
         app:layout_constraintEnd_toStartOf="@+id/textInputLayoutEndDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutHotel">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/vacationStartInput"
-            android:inputType="date"
-            android:clickable="true"
-            android:focusable="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/vacationStartInput"
+        android:inputType="date"
+        android:clickable="true"
+        android:focusable="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -90,9 +90,9 @@
         android:layout_marginEnd="32dp"
         app:boxBackgroundColor="@color/white"
         android:hint="End Date"
-        app:boxStrokeColor="@color/lightGreen"
-        app:hintTextColor="@color/lightGreen"
-        app:cursorColor="@color/lightGreen"
+        app:boxStrokeColor="@color/darkGreen"
+        app:hintTextColor="@color/darkGreen"
+        app:cursorColor="@color/darkGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textInputLayoutStartDate"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutHotel">
@@ -131,7 +131,7 @@
         android:fontFamily="sans-serif"
         android:text="Add Excursion"
         android:textAlignment="center"
-        android:textColor="@color/offWhite"
+        android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -142,12 +142,10 @@
         android:layout_height="204dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="126dp"
-        android:background="@color/lightGreen"
         android:nestedScrollingEnabled="false"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/addExcursionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/associatedExcursionsLabel" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

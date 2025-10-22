@@ -8,7 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Gravity;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,23 +31,24 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        // Back button functionality
+        //Back button functionality
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Vacations Report");
 
         reportTable = findViewById(R.id.reportTable);
 
-        // Get the report text from the intent
+        //Get the report text from the intent
         reportText = getIntent().getStringExtra("reportText");
         if (reportText != null) {
             populateTable(reportText);
         }
 
-        // Download button functionality
-        ImageButton downloadButton = findViewById(R.id.downloadButton);
+        //Download button functionality
+        Button downloadButton = findViewById(R.id.downloadButton);
         downloadButton.setOnClickListener(v -> saveReportToDownloads(reportText));
     }
 
+    //Populate the table
     private void populateTable(String csvText) {
         String[] lines = csvText.split("\n");
 
@@ -66,14 +67,13 @@ public class ReportActivity extends AppCompatActivity {
                 if (i == 0) {
                     cell.setTypeface(null, Typeface.BOLD);
                 }
-
                 row.addView(cell);
             }
-
             reportTable.addView(row);
         }
     }
 
+    //Save the report to downloads folder
     private void saveReportToDownloads(String reportText) {
         String fileName = "vacations_report.csv";
 

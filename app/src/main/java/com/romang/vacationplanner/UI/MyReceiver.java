@@ -22,9 +22,9 @@ public class MyReceiver extends BroadcastReceiver {
         createNotificationChannel(context, channel_id);
 
         Notification n = new NotificationCompat.Builder(context, channel_id)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.eb_icon)
                 .setContentText(intent.getStringExtra("notification"))
-                .setContentTitle("Notification Test")
+                .setContentTitle("Get Ready!")
                 .build();
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

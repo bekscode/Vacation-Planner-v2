@@ -84,7 +84,7 @@ public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.Vacati
         notifyDataSetChanged();
     }
 
-    // method for filtering list
+    //Vacation list filtering for search bar
     public void filter(String query) {
         if (query == null || query.isEmpty()) {
             mVacations = new ArrayList<>(mVacationsFull);

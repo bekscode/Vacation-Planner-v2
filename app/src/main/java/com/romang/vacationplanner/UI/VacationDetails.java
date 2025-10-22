@@ -21,7 +21,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.romang.vacationplanner.R;
 import com.romang.vacationplanner.database.Repository;
 import com.romang.vacationplanner.entities.Excursion;
@@ -274,11 +273,10 @@ public class VacationDetails extends AppCompatActivity {
         }
 
         //back arrow navigation
-        if (item.getItemId() == android.R.id.home) {
-            this.finish();
-            return true;
-        }
-
+        //if (item.getItemId() == android.R.id.home) {
+            //this.finish();
+            //return true;
+        //}
         return true;
     }
 
@@ -324,9 +322,9 @@ public class VacationDetails extends AppCompatActivity {
                     Calendar startDate = Calendar.getInstance();
                     startDate.setTime(sdf.parse(editVacationStart.getText().toString()));
                     if (selectedDate.before(startDate)) {
-                        targetedEditText.setError("Start Date must occur before End Date.");
+                        targetedEditText.setError("Invalid Start Date");
                         Toast.makeText(this,
-                                "Start Date occur come before End Date.",
+                                "Start Date must occur before End Date.",
                                 Toast.LENGTH_LONG).show();
                     }
                 }
@@ -336,7 +334,7 @@ public class VacationDetails extends AppCompatActivity {
             } catch (ParseException e) {
                 targetedEditText.setError("Invalid Date");
                 Toast.makeText(this,
-                        "Invalid Date",
+                        "Invalid Date.",
                         Toast.LENGTH_LONG).show();
             }
         },
@@ -346,10 +344,12 @@ public class VacationDetails extends AppCompatActivity {
     }
 
     public String getStartDate() {
+
         return vacationStart;
     }
 
     public String getEndDate() {
+
         return vacationEnd;
     }
 

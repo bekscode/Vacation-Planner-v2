@@ -54,16 +54,26 @@ public class LoginActivity extends AppCompatActivity {
                     String hash = PasswordUtils.hashPassword(password);
 
                     Executors.newSingleThreadExecutor().execute(() -> {
-                        User user = repository.getUserByUsername(username);
-                        if (user != null && user.getPasswordHash().equals(hash)) {
+                        //input validation for all required fields
+                        if (username == null || username.trim().isEmpty() || hash == null || hash.trim().isEmpty()) {
                             runOnUiThread(() -> {
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Toast.makeText(LoginActivity.this, "Username and password are required.", Toast.LENGTH_LONG).show();
+                            });
+                            return;
+                        }
+                        User user = repository.getUserByUsername(username);
+                        //authentication to check if user exists and password matches
+                        if (user != null && user.getPasswordHash().equals(hash)) {
+                            //if true login
+                            runOnUiThread(() -> {
+                                Intent intent = new Intent(LoginActivity.this, VacationList.class);
                                 startActivity(intent);
                                 finish();
                             });
+                            //if false username or password is incorrect
                         } else {
                             runOnUiThread(() -> {
-                                Toast.makeText(this, "Invalid login", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "Invalid username or password.", Toast.LENGTH_LONG).show();
                             });
                         }
                     });

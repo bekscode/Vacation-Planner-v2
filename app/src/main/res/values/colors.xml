@@ -2,7 +2,6 @@
 <resources>
     <color name="black">#020202</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="darkGreen">#0D2818</color>
-    <color name="lightGreen">#618985</color>
-    <color name="offWhite">#FFFCF7</color>
+    <color name="darkGreen">#20302f</color>
+    <color name="offWhite">#d6d6d6</color>
 </resources>

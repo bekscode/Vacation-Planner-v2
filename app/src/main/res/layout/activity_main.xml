@@ -5,69 +5,41 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/offWhite"
-    tools:context=".UI.MainActivity">
+    tools:context=".UI.MainActivity"
+    android:background="@color/offWhite">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="220dp"
-        android:layout_height="202dp"
-        android:layout_marginBottom="104dp"
-        android:contentDescription="@string/logo_description"
-        android:src="@drawable/rounded_trip_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="#4E3127" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="164dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="44dp"
         android:backgroundTint="@color/darkGreen"
-        android:fontFamily="serif"
-        android:text="@string/enter_button"
-        android:textColor="@color/offWhite"
-        android:textSize="16sp"
+        android:text="Begin"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/welcomeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="serif"
-        android:text="@string/vacation_planner"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/charcoal"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="90dp"
+        android:fontFamily="sans-serif"
+        android:text="Explorer's Buddy"
+        android:textColor="@color/darkGreen"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="323dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="4dp"
-        android:focusedByDefault="false"
-        android:fontFamily="serif"
-        android:text="@string/landing_message"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/charcoal"
-        android:textSize="14sp"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.956" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

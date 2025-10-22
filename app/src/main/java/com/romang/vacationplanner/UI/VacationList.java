@@ -2,7 +2,6 @@ package com.romang.vacationplanner.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -13,7 +12,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.romang.vacationplanner.R;
 import com.romang.vacationplanner.database.Repository;
 import com.romang.vacationplanner.entities.Vacation;
@@ -61,7 +59,7 @@ public class VacationList extends AppCompatActivity {
         });
 
 
-        // SearchView for filtering vacations
+        //SearchView for filtering vacations list
         SearchView searchView = findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -77,6 +75,7 @@ public class VacationList extends AppCompatActivity {
         });
     }
 
+    //generate a report from the vacations table
     private void generateReport(List<Vacation> vacations) {
         StringBuilder reportBuilder = new StringBuilder();
         reportBuilder.append("Vacation Title, Start Date, End Date\n");
@@ -100,11 +99,6 @@ public class VacationList extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_vacation_list, menu);
-        return true;
-    }
 
     @Override
     protected void onResume() {
@@ -116,27 +110,4 @@ public class VacationList extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         vacationAdapter.setVacations(allVacations);
     }
-
-//        @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//            if (item.getItemId() == R.id.sample) {
-//                repository=new Repository(getApplication());
-//                //Toast.makeText(VacationList.this, "put in sample data", Toast.LENGTH_LONG).show();
-//                Vacation vacation=new Vacation(0, "DragonCon", "Westin", "08/28/25", "09/01/25");
-//                repository.insert(vacation);
-//                vacation=new Vacation(0, "Pigeon Forge", "Margaritaville Island Inn", "07/02/26", "07/05/26");
-//                repository.insert(vacation);
-//                Excursion excursion= new Excursion(0,"Dollywood", "07/03/26", 1);
-//                repository.insert(excursion);
-//                excursion=new Excursion(0,"Mini Golf", "07/04/26",1);
-//                repository.insert(excursion);
-//                return true;
-//            }
-//            if (item.getItemId()==android.R.id.home){
-//                this.finish();
-//                return true;
-//            }
-//            return true;
-//
-//        }
 }
