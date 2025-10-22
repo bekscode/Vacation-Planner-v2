@@ -82,9 +82,17 @@ public class ExcursionDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //save new excursion
         if (item.getItemId() == R.id.excursion_save) {
+            String title = editExcursionTitle.getText().toString();
             String excursionDate = editExcursionDate.getText().toString();
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
 
+            //require all fields to be entered before saving
+            if (title.isEmpty() || excursionDate.isEmpty()) {
+                Toast.makeText(this,
+                        "All fields are required",
+                        Toast.LENGTH_LONG).show();
+                return true;
+            }
             //excursion date validation
             try {
                 Date dateCheck = sdf.parse(excursionDate);

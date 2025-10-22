@@ -132,6 +132,41 @@ public class VacationDetails extends AppCompatActivity {
             String hotel = editHotel.getText().toString();
             String start = editVacationStart.getText().toString();
             String end = editVacationEnd.getText().toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
+
+            //require all fields to be entered before saving
+            if (title.isEmpty() || hotel.isEmpty() || start.isEmpty() || end.isEmpty())  {
+                Toast.makeText(this,
+                        "All fields are required",
+                        Toast.LENGTH_LONG).show();
+                return true;
+            }
+            //check the end date occurs after the start date
+            try {
+                Date vacationStartCheck = sdf.parse(start);
+                Date vacationEndCheck = sdf.parse(end);
+
+                if (vacationEndCheck.before(vacationStartCheck)) {
+                    Toast.makeText(this,
+                            "End date cannot occur before start date",
+                            Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                if (vacationStartCheck.after(vacationEndCheck)) {
+                    Toast.makeText(this,
+                            "Start date cannot occur after end date",
+                            Toast.LENGTH_LONG).show();
+                    return true;
+                }
+            }
+            //catch all other date exceptions
+            catch (ParseException e) {
+                Toast.makeText(this,
+                        "Invalid date",
+                        Toast.LENGTH_LONG).show();
+                return true;
+            }
+
 
             Vacation vacation;
             if (vacationID == -1) {
@@ -272,11 +307,7 @@ public class VacationDetails extends AppCompatActivity {
             return true;
         }
 
-        //back arrow navigation
-        //if (item.getItemId() == android.R.id.home) {
-            //this.finish();
-            //return true;
-        //}
+
         return true;
     }
 
