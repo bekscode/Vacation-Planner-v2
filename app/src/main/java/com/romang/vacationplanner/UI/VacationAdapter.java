@@ -23,17 +23,22 @@ public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.Vacati
     private final LayoutInflater mInflater;
 
 
+
     public VacationAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
+
     }
 
     public class VacationViewHolder extends RecyclerView.ViewHolder {
-        private final TextView vacationItemView;
+        private final TextView vacationItemView, vacationItemView2, vacationItemView3;
 
         private VacationViewHolder(View itemView) {
             super(itemView);
             vacationItemView = itemView.findViewById(R.id.textViewVacationListItem);
+            vacationItemView2 = itemView.findViewById(R.id.textViewVacationStartDate);
+            vacationItemView3 = itemView.findViewById(R.id.textViewVacationEndDate);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -63,7 +68,11 @@ public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.Vacati
         if (mVacations != null) {
             Vacation current = mVacations.get(position);
             String title = current.getVacationTitle();
+            String startDate = current.getVacationStart();
+            String endDate = current.getVacationEnd();
             holder.vacationItemView.setText(title);
+            holder.vacationItemView2.setText(startDate);
+            holder.vacationItemView3.setText(endDate);
         } else {
             holder.vacationItemView.setText("No vacation title");
         }

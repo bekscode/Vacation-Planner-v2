@@ -10,6 +10,7 @@
 
     <Button
         android:id="@+id/registerButton"
+        style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="254dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
@@ -19,6 +20,7 @@
         android:fontFamily="sans-serif"
         android:text="Register"
         android:textAlignment="center"
+        app:rippleColor="#40FFFFFF"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.romang.vacationplanner.R;
 import com.romang.vacationplanner.database.Repository;
 import com.romang.vacationplanner.entities.Excursion;
@@ -124,6 +125,7 @@ public class VacationDetails extends AppCompatActivity {
         return true;
     }
 
+
     //save and update functionality
     public boolean onOptionsItemSelected(MenuItem item) {
         //save new vacation
@@ -135,7 +137,7 @@ public class VacationDetails extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
 
             //require all fields to be entered before saving
-            if (title.isEmpty() || hotel.isEmpty() || start.isEmpty() || end.isEmpty())  {
+            if (title.isEmpty() || hotel.isEmpty() || start.isEmpty() || end.isEmpty()) {
                 Toast.makeText(this,
                         "All fields are required",
                         Toast.LENGTH_LONG).show();
@@ -146,13 +148,15 @@ public class VacationDetails extends AppCompatActivity {
                 Date vacationStartCheck = sdf.parse(start);
                 Date vacationEndCheck = sdf.parse(end);
 
-                if (vacationEndCheck.before(vacationStartCheck)) {
+
+                if (vacationEndCheck != null && vacationEndCheck.before(vacationStartCheck)) {
                     Toast.makeText(this,
                             "End date cannot occur before start date",
                             Toast.LENGTH_LONG).show();
                     return true;
                 }
-                if (vacationStartCheck.after(vacationEndCheck)) {
+
+                if (vacationStartCheck != null && vacationStartCheck.after(vacationEndCheck)) {
                     Toast.makeText(this,
                             "Start date cannot occur after end date",
                             Toast.LENGTH_LONG).show();
@@ -166,8 +170,7 @@ public class VacationDetails extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 return true;
             }
-
-
+            //write to the database
             Vacation vacation;
             if (vacationID == -1) {
                 if (repository.getmAllVacations().isEmpty()) {
@@ -266,6 +269,7 @@ public class VacationDetails extends AppCompatActivity {
             }
         }
 
+
         //vacation share
         if (item.getItemId() == R.id.vacation_share) {
             Vacation vacation = repository.getVacationById(vacationID);
@@ -306,11 +310,17 @@ public class VacationDetails extends AppCompatActivity {
             }
             return true;
         }
-
+        //fix back navigation
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
 
         return true;
+
     }
 
+    //display associated excursions in the recycler view
     private void loadExcursions() {
         List<Excursion> filteredExcursions = new ArrayList<>();
         for (Excursion e : repository.getmAssociatedExcursions(vacationID)) {

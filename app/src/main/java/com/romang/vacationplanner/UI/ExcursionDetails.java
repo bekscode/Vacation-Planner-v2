@@ -100,14 +100,14 @@ public class ExcursionDetails extends AppCompatActivity {
                 Date vacationEndCheck = sdf.parse(vacationEnd);
 
                 //checks the excursion occurs after vacation start date
-                if (dateCheck.before(vacationStartCheck)) {
+                if (dateCheck != null && dateCheck.before(vacationStartCheck)) {
                     Toast.makeText(this,
                             "Excursion cannot occur before vacation begins",
                             Toast.LENGTH_LONG).show();
                     return true;
                 }
                 //checks the excursion occurs before vacation end date
-                if (dateCheck.after(vacationEndCheck)) {
+                if (dateCheck != null && dateCheck.after(vacationEndCheck)) {
                     Toast.makeText(this,
                             "Excursion cannot occur after vacation ends",
                             Toast.LENGTH_LONG).show();

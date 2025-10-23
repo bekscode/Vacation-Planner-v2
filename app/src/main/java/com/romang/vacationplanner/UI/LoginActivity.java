@@ -23,9 +23,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView registerTextView;
     private Repository repository;
 
-    // Login for testing
-    private final String validUsername = "Admin";
-    private final String validPassword = "Password";
 
 
     @Override
@@ -40,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         registerTextView = findViewById(R.id.registerTextView);
 
         Executors.newSingleThreadExecutor().execute(() -> {
+           //login for testing
             if (repository.getUserByUsername("Admin") == null) {
                 User user = new User();
                 user.setUsername("Admin");
