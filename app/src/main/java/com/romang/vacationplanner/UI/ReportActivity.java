@@ -1,12 +1,14 @@
 package com.romang.vacationplanner.UI;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
+import android.content.ActivityNotFoundException;
+
+import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.pdf.PdfDocument;
+import android.graphics.pdf.PdfDocument.PageInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -15,9 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.romang.vacationplanner.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -31,24 +36,22 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        //Back button functionality
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Vacations Report");
 
         reportTable = findViewById(R.id.reportTable);
 
-        //Get the report text from the intent
+        //get the report text from the intent
         reportText = getIntent().getStringExtra("reportText");
         if (reportText != null) {
             populateTable(reportText);
         }
 
-        //Download button functionality
+        //download button functionality
         Button downloadButton = findViewById(R.id.downloadButton);
-        downloadButton.setOnClickListener(v -> saveReportToDownloads(reportText));
+        downloadButton.setOnClickListener(v -> generatePDF(reportText));
+
     }
 
-    //Populate the table
+    //populate the table
     private void populateTable(String csvText) {
         String[] lines = csvText.split("\n");
 
@@ -60,7 +63,7 @@ public class ReportActivity extends AppCompatActivity {
             for (String column : columns) {
                 TextView cell = new TextView(this);
                 cell.setText(column.trim());
-                cell.setPadding(8,8,8,8);
+                cell.setPadding(8, 8, 8, 8);
                 cell.setTextSize(16);
                 cell.setGravity(Gravity.CENTER);
 
@@ -73,41 +76,82 @@ public class ReportActivity extends AppCompatActivity {
         }
     }
 
-    //Save the report to downloads folder
-    private void saveReportToDownloads(String reportText) {
-        String fileName = "vacations_report.csv";
-
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
-        values.put(MediaStore.Downloads.MIME_TYPE, "text/csv");
-        values.put(MediaStore.Downloads.IS_PENDING, 1);
-
-        ContentResolver resolver = getContentResolver();
-        Uri collection = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            collection = MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
+    //generate a PDF from the report table
+    private void generatePDF(String reportText) {
+        //make sure there is a report
+        if (reportTable.getChildCount() == 0) {
+            Toast.makeText(this, "No data found.", Toast.LENGTH_LONG).show();
+            return;
         }
-        Uri fileUri = resolver.insert(collection, values);
+        PdfDocument document = new PdfDocument();
+        //page info for standard paper print out
+        PageInfo pageInfo = new PageInfo.Builder(595, 842, 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
 
-        try (OutputStream out = resolver.openOutputStream(fileUri)) {
-            out.write(reportText.getBytes());
-            out.flush();
+        //PDF drawing tools
+        Paint textPaint = new Paint();
+        textPaint.setTextSize(10f);
+        int startX = 40;
+        int startY = 40;
+        int currentY = startY;
+        final int LINE_HEIGHT = 16;
+        final int MAX_Y = 800;
+
+        //draw table
+        for (int i = 0; i < reportTable.getChildCount(); i++) {
+            TableRow row = (TableRow) reportTable.getChildAt(i);
+            if (currentY > MAX_Y) {
+                document.finishPage(page);
+                pageInfo = new PageInfo.Builder(595, 842, document.getPages().size() + 1).create();
+                page = document.startPage(pageInfo);
+                currentY = startY;
+            }
+
+            //set headers
+            if (i == 0) {
+                textPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            } else {
+                textPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+            }
+
+            int currentX = startX;
+            for (int j = 0; j < row.getChildCount(); j++) {
+                TextView cell = (TextView) row.getChildAt(j);
+                String text = cell.getText().toString();
+
+                page.getCanvas().drawText(text, currentX, currentY, textPaint);
+                currentX += (pageInfo.getPageWidth() - 2 * startX) / row.getChildCount();
+            }
+
+            currentY += LINE_HEIGHT;
+        }
+        document.finishPage(page);
+
+        //cache the file
+        File cachePath = new File(getCacheDir(), "reports");
+        if (!cachePath.exists()) {
+            cachePath.mkdirs();
+        }
+        File tempFile = new File(cachePath, "vacations_report.pdf");
+
+        try (OutputStream out = new FileOutputStream(tempFile)) {
+            document.writeTo(out);
+            document.close();
         } catch (IOException e) {
             e.printStackTrace();
-            runOnUiThread(() -> Toast.makeText(this, "Failed to save file.", Toast.LENGTH_LONG).show());
+            Toast.makeText(this, "Unable to create PDF.", Toast.LENGTH_LONG).show();
             return;
         }
 
-        values.clear();
-        values.put(MediaStore.Downloads.IS_PENDING, 0);
-        resolver.update(fileUri, values, null, null);
+        Uri fileUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", tempFile);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(fileUri, "application/pdf");
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        runOnUiThread(() -> Toast.makeText(this, "Report saved.", Toast.LENGTH_LONG).show());
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
+        try {
+            startActivity(Intent.createChooser(intent, "Open report with..."));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No app found for viewing PDF.", Toast.LENGTH_LONG).show();
+        }
     }
 }
