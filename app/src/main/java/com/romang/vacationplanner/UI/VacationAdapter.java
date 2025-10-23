@@ -23,7 +23,6 @@ public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.Vacati
     private final LayoutInflater mInflater;
 
 
-
     public VacationAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         this.context = context;

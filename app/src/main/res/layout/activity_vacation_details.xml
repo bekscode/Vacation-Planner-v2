@@ -132,13 +132,13 @@
         android:fontFamily="sans-serif"
         android:text="@string/add_ex_button"
         android:textAlignment="center"
-        app:rippleColor="#40FFFFFF"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:icon="@drawable/round_add_24"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="#40FFFFFF" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacationDetailsRecyclerView"

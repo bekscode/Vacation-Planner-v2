@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.MainActivity"
-    android:background="@color/offWhite">
+    android:background="@color/offWhite"
+    tools:context=".UI.MainActivity">
 
 
     <Button

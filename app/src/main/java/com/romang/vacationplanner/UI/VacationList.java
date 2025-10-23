@@ -17,9 +17,11 @@ import com.romang.vacationplanner.database.Repository;
 import com.romang.vacationplanner.entities.Vacation;
 
 import java.util.List;
+
 import androidx.appcompat.widget.SearchView;
 
 import java.util.concurrent.Executors;
+
 import android.widget.Button;
 
 public class VacationList extends AppCompatActivity {

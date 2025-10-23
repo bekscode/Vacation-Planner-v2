@@ -43,7 +43,6 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/login_pw"
-        app:startIconDrawable="@drawable/password_icon"
         app:boxBackgroundColor="@color/white"
         app:boxStrokeColor="@color/darkGreen"
         app:cursorColor="@color/darkGreen"
@@ -52,7 +51,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutUsername"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/password_icon">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordText"
@@ -72,7 +72,6 @@
         android:fontFamily="sans-serif"
         android:text="@string/login_button"
         android:textAlignment="center"
-        app:rippleColor="#40FFFFFF"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -80,7 +79,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword"
-        app:layout_constraintVertical_bias="0.119" />
+        app:layout_constraintVertical_bias="0.119"
+        app:rippleColor="#40FFFFFF" />
 
     <TextView
         android:id="@+id/registerTextView"

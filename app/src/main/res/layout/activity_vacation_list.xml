@@ -17,18 +17,18 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
+        android:elevation="15dp"
         android:fontFamily="sans-serif"
         android:text="@string/vl_add_button"
         android:textAlignment="center"
-        app:rippleColor="#40FFFFFF"
         android:textColor="@color/white"
-        android:elevation="15dp"
         android:textSize="14sp"
         app:backgroundTint="@color/darkGreen"
         app:icon="@drawable/round_add_24"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="#40FFFFFF" />
 
     <Button
         android:id="@+id/reportButton"
@@ -37,18 +37,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginBottom="32dp"
+        android:elevation="15dp"
         android:fontFamily="sans-serif"
         android:text="@string/vl_report_button"
         android:textAlignment="center"
-        app:rippleColor="#40FFFFFF"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:backgroundTint="@color/darkGreen"
-        android:elevation="15dp"
         app:icon="@drawable/generate_icon"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#40FFFFFF" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacationListRecyclerView"

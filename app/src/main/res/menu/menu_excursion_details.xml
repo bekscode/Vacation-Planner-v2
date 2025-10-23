@@ -4,9 +4,9 @@
 
     <item
         android:id="@+id/excursion_save"
-        android:title="@string/excursion_save_menu_item"
         android:icon="@drawable/outline_save_24"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/excursion_save_menu_item"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/excursion_notify"
         android:title="@string/excursion_notify_menu_item" />

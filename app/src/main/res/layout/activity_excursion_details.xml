@@ -20,8 +20,8 @@
         android:hint="@string/excursion_title"
         app:boxBackgroundColor="@color/white"
         app:boxStrokeColor="@color/darkGreen"
-        app:hintTextColor="@color/darkGreen"
         app:cursorColor="@color/darkGreen"
+        app:hintTextColor="@color/darkGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,18 +42,18 @@
         android:hint="@string/excursion_date"
         app:boxBackgroundColor="@color/white"
         app:boxStrokeColor="@color/darkGreen"
-        app:hintTextColor="@color/darkGreen"
         app:cursorColor="@color/darkGreen"
+        app:hintTextColor="@color/darkGreen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutExcursionTitle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/excursionDateInput"
-            android:inputType="date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:inputType="date" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

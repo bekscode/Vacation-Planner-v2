@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
     private Repository repository;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView registerTextView = findViewById(R.id.registerTextView);
 
         Executors.newSingleThreadExecutor().execute(() -> {
-           //login for testing
+            //login for testing
             if (repository.getUserByUsername("Admin") == null) {
                 User user = new User();
                 user.setUsername("Admin");
@@ -45,34 +44,34 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         loginButton.setOnClickListener(v -> {
-                    String username = usernameText.getText().toString().trim();
-                    String password = passwordText.getText().toString().trim();
-                    String hash = PasswordUtils.hashPassword(password);
+            String username = usernameText.getText().toString().trim();
+            String password = passwordText.getText().toString().trim();
+            String hash = PasswordUtils.hashPassword(password);
 
-                    Executors.newSingleThreadExecutor().execute(() -> {
-                        //input validation for all required fields
-                        if (username.trim().isEmpty() || hash == null || hash.trim().isEmpty()) {
-                            runOnUiThread(() -> {
-                                Toast.makeText(LoginActivity.this, "Username and password are required.", Toast.LENGTH_LONG).show();
-                            });
-                            return;
-                        }
-                        User user = repository.getUserByUsername(username);
-                        //authentication to check if user exists and password matches
-                        if (user != null && user.getPasswordHash().equals(hash)) {
-                            //if true login
-                            runOnUiThread(() -> {
-                                Intent intent = new Intent(LoginActivity.this, VacationList.class);
-                                startActivity(intent);
-                                finish();
-                            });
-                            //if false username or password is incorrect
-                        } else {
-                            runOnUiThread(() -> {
-                                Toast.makeText(LoginActivity.this, "Invalid username or password.", Toast.LENGTH_LONG).show();
-                            });
-                        }
+            Executors.newSingleThreadExecutor().execute(() -> {
+                //input validation for all required fields
+                if (username.trim().isEmpty() || hash == null || hash.trim().isEmpty()) {
+                    runOnUiThread(() -> {
+                        Toast.makeText(LoginActivity.this, "Username and password are required.", Toast.LENGTH_LONG).show();
                     });
+                    return;
+                }
+                User user = repository.getUserByUsername(username);
+                //authentication to check if user exists and password matches
+                if (user != null && user.getPasswordHash().equals(hash)) {
+                    //if true login
+                    runOnUiThread(() -> {
+                        Intent intent = new Intent(LoginActivity.this, VacationList.class);
+                        startActivity(intent);
+                        finish();
+                    });
+                    //if false username or password is incorrect
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(LoginActivity.this, "Invalid username or password.", Toast.LENGTH_LONG).show();
+                    });
+                }
+            });
         });
         registerTextView.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
