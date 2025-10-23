@@ -1,8 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.VacationPlanner" parent="Theme.Material3.DayNight">
+
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/darkGreen</item>
+        <item name="colorSecondary">@color/grey</item>
+        <item name="colorAccent">@color/lightGreen</item>
+        <item name="colorTertiary">@color/offWhite</item>
+        <item name="colorError">@color/errorRed</item>
+
+
     </style>
 
     <style name="Theme.VacationPlanner" parent="Base.Theme.VacationPlanner" />

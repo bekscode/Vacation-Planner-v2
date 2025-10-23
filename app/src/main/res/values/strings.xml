@@ -1,29 +1,56 @@
 <resources>
     <!-- main -->
-    <string name="app_name">Vacation Planner</string>
-    <string name="logo_description">brown suitcase logo</string>
+    <string name="app_name">Explorer\'s Buddy</string>
+    <string name="logo_description">black compass logo</string>
     <string name="enter_button">Begin</string>
     <string name="landing_message">The perfect tool to plan your trip and share with friends</string>
     <string name="vacation_planner">Vacation Planner</string>
 
+    <!-- login -->
+    <string name="login_welcome">Sign In</string>
+    <string name="login_username">Username</string>
+    <string name="login_pw">Password</string>
+    <string name="login_button">Login</string>
+    <string name="login_register_button">Sign Up</string>
+    <string name="login_register_message">Don\'t have an account?</string>
+
+    <!-- register -->
+    <string name="register_welcome">Sign Up</string>
+    <string name="register_register_button">Register</string>
+    <string name="register_username">Username</string>
+    <string name="register_pw">Password</string>
+    <string name="register_confirm_pw">Confirm Password</string>
+
     <!-- vacation details -->
-    <string name="vacation_details">My Vacation</string>
-    <string name="vacation_title_label">Title: </string>
-    <string name="vacation_title_hint">Enter a vacation title</string>
-    <string name="hotel_label">Hotel: </string>
-    <string name="hotel_hint">Enter a hotel name</string>
-    <string name="vacation_start_label">Start Date: </string>
-    <string name="vacation_end_label">End Date: </string>
-    <string name="date_hint">MM/DD/YY</string>
+    <string name="vacation_title">Vacation Title</string>
+    <string name="hotel_name">Hotel Name</string>
+    <string name="vacation_start">Start Date</string>
+    <string name="vacation_end">End Date</string>
+    <string name="vacation_associated_ex">Associated Excursions</string>
+    <string name="add_ex_button">Add Excursion</string>
+
+    <!-- report -->
+    <string name="dl_button">Download PDF</string>
 
     <!-- excursion details -->
     <string name="excursion_details">My Excursion</string>
-    <string name="excursion_title">Title: </string>
-    <string name="excursion_title_hint">Enter an excursion title</string>
-    <string name="excursion_date">Date: </string>
+    <string name="excursion_title">Excursion Title</string>
+    <string name="excursion_date">Start Date</string>
 
     <!-- vacation list -->
-    <string name="vacation_list">Vacations</string>
+    <string name="vl_add_button">Add Vacation</string>
+    <string name="vl_report_button">Create Report</string>
+    <string name="vl_search_hint">Search Vacations…</string>
+
+    <!-- excursion list item -->
+    <string name="excursion_li_name">Excursion Title:</string>
+    <string name="excursion_li_date">Date</string>
+
+    <!-- vacation list item -->
+    <string name="vacation_li_name">Vacation Title:</string>
+    <string name="vacation_li_start">Start Date</string>
+    <string name="vacation_li_date_separator">-</string>
+    <string name="vacation_li_end">End Date</string>
 
     <!-- menu items -->
     <string name="vacation_save_menu_item">Save Vacation</string>
@@ -34,14 +61,6 @@
     <string name="excursion_save_menu_item">Save Excursion</string>
     <string name="excursion_delete_menu_item">Delete Excursion</string>
     <string name="excursion_notify_menu_item">Notify</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+
 
 </resources>

@@ -3,5 +3,9 @@
     <color name="black">#020202</color>
     <color name="white">#FFFFFFFF</color>
     <color name="darkGreen">#20302f</color>
+    <color name="lightGreen">#7B9694</color>
     <color name="offWhite">#d6d6d6</color>
+    <color name="grey">#8E9196</color>
+    <color name="errorRed">#FF5449</color>
+
 </resources>
