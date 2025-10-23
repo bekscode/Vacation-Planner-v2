@@ -13,7 +13,7 @@ import com.romang.vacationplanner.entities.Excursion;
 import com.romang.vacationplanner.entities.User;
 import com.romang.vacationplanner.entities.Vacation;
 
-@Database(entities = {Vacation.class, Excursion.class, User.class}, version = 14, exportSchema = false)
+@Database(entities = {Vacation.class, Excursion.class, User.class}, version = 15, exportSchema = false)
 
 public abstract class VacationDatabaseBuilder extends RoomDatabase {
     public abstract VacationDAO vacationDAO();

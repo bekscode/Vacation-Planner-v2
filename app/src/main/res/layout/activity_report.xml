@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/darkGreen"
         android:drawableTint="@color/white"
-        android:text="Download"
+        android:text="@string/dl_button"
         android:textColor="@color/white"
         app:icon="@drawable/rounded_download_24"
         app:iconTint="@color/white"

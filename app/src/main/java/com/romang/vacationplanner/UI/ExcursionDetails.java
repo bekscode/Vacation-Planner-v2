@@ -89,7 +89,7 @@ public class ExcursionDetails extends AppCompatActivity {
             //require all fields to be entered before saving
             if (title.isEmpty() || excursionDate.isEmpty()) {
                 Toast.makeText(this,
-                        "All fields are required",
+                        "All fields required",
                         Toast.LENGTH_LONG).show();
                 return true;
             }

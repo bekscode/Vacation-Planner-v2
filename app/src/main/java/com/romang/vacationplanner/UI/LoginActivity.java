@@ -19,8 +19,6 @@ import java.util.concurrent.Executors;
 public class LoginActivity extends AppCompatActivity {
 
     private TextInputEditText usernameText, passwordText;
-    private Button loginButton;
-    private TextView registerTextView;
     private Repository repository;
 
 
@@ -33,8 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         repository = new Repository(getApplication());
         usernameText = findViewById(R.id.usernameText);
         passwordText = findViewById(R.id.passwordText);
-        loginButton = findViewById(R.id.loginButton);
-        registerTextView = findViewById(R.id.registerTextView);
+        Button loginButton = findViewById(R.id.loginButton);
+        TextView registerTextView = findViewById(R.id.registerTextView);
 
         Executors.newSingleThreadExecutor().execute(() -> {
            //login for testing
@@ -53,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Executors.newSingleThreadExecutor().execute(() -> {
                         //input validation for all required fields
-                        if (username == null || username.trim().isEmpty() || hash == null || hash.trim().isEmpty()) {
+                        if (username.trim().isEmpty() || hash == null || hash.trim().isEmpty()) {
                             runOnUiThread(() -> {
                                 Toast.makeText(LoginActivity.this, "Username and password are required.", Toast.LENGTH_LONG).show();
                             });

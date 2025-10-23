@@ -51,7 +51,6 @@ public class VacationDetails extends AppCompatActivity {
 
     Repository repository;
     private ExcursionAdapter excursionAdapter;
-    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +110,7 @@ public class VacationDetails extends AppCompatActivity {
 
         //excursion recycler view for showing associated excursions
         repository = new Repository(getApplication());
-        recyclerView = findViewById(R.id.vacationDetailsRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.vacationDetailsRecyclerView);
         excursionAdapter = new ExcursionAdapter(this, vacationStart, vacationEnd);
         recyclerView.setAdapter(excursionAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

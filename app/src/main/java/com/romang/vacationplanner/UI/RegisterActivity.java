@@ -19,7 +19,6 @@ import java.util.concurrent.Executors;
 public class RegisterActivity extends AppCompatActivity {
 
     private TextInputEditText usernameInput, passwordInput, confirmPasswordInput;
-    private Button registerButton;
     private Repository repository;
 
     @Override
@@ -34,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText passwordInput = findViewById(R.id.passwordText);
         EditText confirmPasswordInput = findViewById(R.id.confirmPasswordText);
 
-        registerButton = findViewById(R.id.registerButton);
+        Button registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(v -> {
             String username = usernameInput.getText().toString().trim();
             String password = passwordInput.getText().toString().trim();
