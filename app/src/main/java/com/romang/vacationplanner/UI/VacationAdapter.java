@@ -37,7 +37,6 @@ public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.Vacati
             vacationItemView = itemView.findViewById(R.id.textViewVacationListItem);
             vacationItemView2 = itemView.findViewById(R.id.textViewVacationStartDate);
             vacationItemView3 = itemView.findViewById(R.id.textViewVacationEndDate);
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

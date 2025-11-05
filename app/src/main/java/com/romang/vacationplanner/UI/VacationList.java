@@ -2,9 +2,13 @@ package com.romang.vacationplanner.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -51,6 +55,7 @@ public class VacationList extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         vacationAdapter.setVacations(allVacations);
 
+        //generate report
         Button generateButton = findViewById(R.id.reportButton);
         generateButton.setOnClickListener(v -> {
             Executors.newSingleThreadExecutor().execute(() -> {
@@ -60,25 +65,49 @@ public class VacationList extends AppCompatActivity {
             });
         });
 
+    }
 
-        //SearchView for filtering vacations list
-        SearchView searchView = findViewById(R.id.searchView);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+    //menu search option
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_vacation_list, menu);
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                vacationAdapter.filter(newText);
-                return true;
-            }
-        });
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        if (searchView != null) {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    vacationAdapter.filter(newText);
+                    return true;
+                }
+            });
+        }
+        return true;
     }
 
     //generate a report from the vacations table
     private void generateReport(List<Vacation> vacations) {
+        Intent intent = getIntent(vacations);
+
+        runOnUiThread(() -> startActivity(intent));
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+    }
+
+    @NonNull
+    private Intent getIntent(List<Vacation> vacations) {
         StringBuilder reportBuilder = new StringBuilder();
         reportBuilder.append("Vacation Title, Start Date, End Date\n");
 
@@ -91,14 +120,7 @@ public class VacationList extends AppCompatActivity {
         String reportText = reportBuilder.toString();
         Intent intent = new Intent(this, ReportActivity.class);
         intent.putExtra("reportText", reportText);
-
-        runOnUiThread(() -> startActivity(intent));
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        return intent;
     }
 
 

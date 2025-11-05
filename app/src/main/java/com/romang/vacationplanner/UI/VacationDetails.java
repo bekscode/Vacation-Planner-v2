@@ -147,17 +147,9 @@ public class VacationDetails extends AppCompatActivity {
                 Date vacationStartCheck = sdf.parse(start);
                 Date vacationEndCheck = sdf.parse(end);
 
-
-                if (vacationEndCheck != null && vacationEndCheck.before(vacationStartCheck)) {
+                if (vacationStartCheck != null && vacationEndCheck != null & vacationStartCheck.after(vacationEndCheck)) {
                     Toast.makeText(this,
-                            "End date cannot occur before start date",
-                            Toast.LENGTH_LONG).show();
-                    return true;
-                }
-
-                if (vacationStartCheck != null && vacationStartCheck.after(vacationEndCheck)) {
-                    Toast.makeText(this,
-                            "Start date cannot occur after end date",
+                            "Start date must come before end date.",
                             Toast.LENGTH_LONG).show();
                     return true;
                 }
@@ -364,7 +356,7 @@ public class VacationDetails extends AppCompatActivity {
                     if (selectedDate.before(startDate)) {
                         targetedEditText.setError("Invalid Start Date");
                         Toast.makeText(this,
-                                "Start Date must occur before End Date.",
+                                "Start date must come before end date.",
                                 Toast.LENGTH_LONG).show();
                     }
                 }
