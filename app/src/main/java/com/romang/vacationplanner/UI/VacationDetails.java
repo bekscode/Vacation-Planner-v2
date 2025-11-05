@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executors;
 
 public class VacationDetails extends AppCompatActivity {
     String title;
@@ -114,7 +115,7 @@ public class VacationDetails extends AppCompatActivity {
         excursionAdapter = new ExcursionAdapter(this, vacationStart, vacationEnd);
         recyclerView.setAdapter(excursionAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        loadExcursions();
+        Executors.newSingleThreadExecutor().execute(this::loadExcursions);
     }
 
     //menu inflater
@@ -162,24 +163,34 @@ public class VacationDetails extends AppCompatActivity {
                 return true;
             }
             //write to the database
-            Vacation vacation;
-            if (vacationID == -1) {
-                if (repository.getmAllVacations().isEmpty()) {
-                    vacationID = 1;
-                } else {
-                    vacationID = repository.getmAllVacations()
-                            .get(repository.getmAllVacations().size() - 1)
-                            .getVacationID() + 1;
-                }
-                vacation = new Vacation(vacationID, title, hotel, start, end);
-                repository.insert(vacation);
+            Executors.newSingleThreadExecutor().execute(() -> {
+                Vacation vacation;
 
-                //update vacation
-            } else {
-                vacation = new Vacation(vacationID, title, hotel, start, end);
-                repository.update(vacation);
-            }
-            this.finish();
+                if (vacationID == -1) {
+                    if (repository.getmAllVacations().isEmpty()) {
+                        vacationID = 1;
+                    } else {
+                        vacationID = repository.getmAllVacations()
+                                .get(repository.getmAllVacations().size() - 1)
+                                .getVacationID() + 1;
+                    }
+                    vacation = new Vacation(vacationID, title, hotel, start, end);
+                    repository.insert(vacation);
+                    runOnUiThread(() -> {
+                        Toast.makeText(VacationDetails.this,
+                                "Vacation saved",
+                                Toast.LENGTH_LONG).show();
+                        this.finish();
+                    });
+
+                    //update vacation
+                } else {
+                    vacation = new Vacation(vacationID, title, hotel, start, end);
+                    repository.update(vacation);
+                }
+                runOnUiThread(this::finish);
+            });
+            return true;
         }
 
 
@@ -193,17 +204,25 @@ public class VacationDetails extends AppCompatActivity {
                     editVacationEnd.getText().toString()
             );
             //delete validation
-            if (repository.getmAssociatedExcursions(vacationID).isEmpty()) {
-                repository.delete(vacation);
-                Toast.makeText(VacationDetails.this,
-                        "Vacation deleted",
-                        Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(VacationDetails.this,
-                        "Unable to delete. This vacation has an associated excursion.",
-                        Toast.LENGTH_LONG).show();
-            }
-            this.finish();
+            Executors.newSingleThreadExecutor().execute(()-> {
+                if (repository.getmAssociatedExcursions(vacationID).isEmpty()) {
+                    repository.delete(vacation);
+
+                    runOnUiThread(() -> {
+                        Toast.makeText(VacationDetails.this,
+                                "Vacation deleted",
+                                Toast.LENGTH_LONG).show();
+                        this.finish();
+                    });
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(VacationDetails.this,
+                                "Unable to delete. This vacation has an associated excursion.",
+                                Toast.LENGTH_LONG).show();
+                    });
+                }
+            });
+            return true;
         }
 
 
@@ -258,47 +277,56 @@ public class VacationDetails extends AppCompatActivity {
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, endTrigger, endSender);
             }
+            return true;
         }
 
 
         //vacation share
         if (item.getItemId() == R.id.vacation_share) {
-            Vacation vacation = repository.getVacationById(vacationID);
-            if (vacation != null) {
-                StringBuilder shareBuilder = new StringBuilder();
-                shareBuilder.append("Vacation Title: ").append(vacation.getVacationTitle())
-                        .append("\nHotel: ").append(vacation.getVacationHotel())
-                        .append("\nStart Date: ").append(vacation.getVacationStart())
-                        .append("\nEnd Date: ").append(vacation.getVacationEnd());
-                //excursion info for sharing
-                List<Excursion> excursions = repository.getmAssociatedExcursions(vacationID);
-                if (excursions != null && !excursions.isEmpty()) {
-                    shareBuilder.append("\n\nAssociated Excursions: ");
-                    for (Excursion excursion : excursions) {
-                        shareBuilder.append("\n ")
-                                .append(excursion.getExcursionTitle())
-                                .append(" on ")
-                                .append(excursion.getExcursionDate());
+            Executors.newSingleThreadExecutor().execute(() -> { // *** FIX: ADDED .execute() ***
+                Vacation vacation = repository.getVacationById(vacationID);
+
+                if (vacation != null) {
+                    StringBuilder shareBuilder = new StringBuilder();
+                    shareBuilder.append("Vacation Title: ").append(vacation.getVacationTitle())
+                            .append("\nHotel: ").append(vacation.getVacationHotel())
+                            .append("\nStart Date: ").append(vacation.getVacationStart())
+                            .append("\nEnd Date: ").append(vacation.getVacationEnd());
+                    //excursion info for sharing
+                    List<Excursion> excursions = repository.getmAssociatedExcursions(vacationID);
+                    if (excursions != null && !excursions.isEmpty()) {
+                        shareBuilder.append("\n\nAssociated Excursions: ");
+                        for (Excursion excursion : excursions) {
+                            shareBuilder.append("\n ")
+                                    .append(excursion.getExcursionTitle())
+                                    .append(" on ")
+                                    .append(excursion.getExcursionDate());
+                        }
+                    } else {
+                        shareBuilder.append("\n\n No excursions scheduled during this vacation.");
                     }
+
+                    final String vacationShare = shareBuilder.toString();
+                    final String vacationTitle = vacation.getVacationTitle();
+
+                    runOnUiThread(() -> {
+                        Intent sentIntent = new Intent();
+                        sentIntent.setAction(Intent.ACTION_SEND);
+                        sentIntent.putExtra(Intent.EXTRA_TITLE, vacationTitle + " Details");
+                        sentIntent.putExtra(Intent.EXTRA_TEXT, vacationShare);
+                        sentIntent.setType("text/plain");
+
+                        Intent shareIntent = Intent.createChooser(sentIntent, null);
+                        startActivity(shareIntent);
+                    });
                 } else {
-                    shareBuilder.append("\n\n No excursions scheduled during this vacation.");
+                    runOnUiThread(() -> {
+                        Toast.makeText(this,
+                                "No vacation found.",
+                                Toast.LENGTH_LONG).show();
+                    });
                 }
-
-                vacationShare = shareBuilder.toString();
-
-                Intent sentIntent = new Intent();
-                sentIntent.setAction(Intent.ACTION_SEND);
-                sentIntent.putExtra(Intent.EXTRA_TITLE, vacation.getVacationTitle() + " Details");
-                sentIntent.putExtra(Intent.EXTRA_TEXT, vacationShare);
-                sentIntent.setType("text/plain");
-
-                Intent shareIntent = Intent.createChooser(sentIntent, null);
-                startActivity(shareIntent);
-            } else {
-                Toast.makeText(this,
-                        "No vacation found.",
-                        Toast.LENGTH_LONG).show();
-            }
+            });
             return true;
         }
         //fix back navigation
@@ -307,7 +335,7 @@ public class VacationDetails extends AppCompatActivity {
             return true;
         }
 
-        return true;
+        return super.onOptionsItemSelected(item);
 
     }
 
@@ -317,7 +345,9 @@ public class VacationDetails extends AppCompatActivity {
         for (Excursion e : repository.getmAssociatedExcursions(vacationID)) {
             if (e.getVacationID() == vacationID) filteredExcursions.add(e);
         }
-        excursionAdapter.setExcursions(filteredExcursions);
+        runOnUiThread(() -> {
+            excursionAdapter.setExcursions(filteredExcursions);
+        });
     }
 
     //date format validation
@@ -389,15 +419,21 @@ public class VacationDetails extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadExcursions();
+
+        Executors.newSingleThreadExecutor().execute(this::loadExcursions);
 
         //repopulate the vacation fields from the repo
-        Vacation vacation = repository.getVacationById(vacationID);
-        if (vacation != null) {
-            editTitle.setText(vacation.getVacationTitle());
-            editHotel.setText(vacation.getVacationHotel());
-            editVacationStart.setText(vacation.getVacationStart());
-            editVacationEnd.setText(vacation.getVacationEnd());
-        }
+        Executors.newSingleThreadExecutor().execute(() -> {
+            Vacation vacation = repository.getVacationById(vacationID);
+
+            runOnUiThread(() -> {
+                if (vacation != null) {
+                    editTitle.setText(vacation.getVacationTitle());
+                    editHotel.setText(vacation.getVacationHotel());
+                    editVacationStart.setText(vacation.getVacationStart());
+                    editVacationEnd.setText(vacation.getVacationEnd());
+                }
+            });
+        });
     }
 }

@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.Executors;
 
 public class ExcursionDetails extends AppCompatActivity {
     String excursionTitle;
@@ -82,96 +83,98 @@ public class ExcursionDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //save new excursion
         if (item.getItemId() == R.id.excursion_save) {
-            String title = editExcursionTitle.getText().toString();
-            String excursionDate = editExcursionDate.getText().toString();
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
+            final String title = editExcursionTitle.getText().toString();
+            final String excursionDate = editExcursionDate.getText().toString();
+            final SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy", Locale.US);
 
-            //require all fields to be entered before saving
+
             if (title.isEmpty() || excursionDate.isEmpty()) {
                 Toast.makeText(this,
                         "All fields required",
                         Toast.LENGTH_LONG).show();
                 return true;
             }
-            //excursion date validation
             try {
                 Date dateCheck = sdf.parse(excursionDate);
                 Date vacationStartCheck = sdf.parse(vacationStart);
                 Date vacationEndCheck = sdf.parse(vacationEnd);
 
-                //checks the excursion occurs after vacation start date
                 if (dateCheck != null && dateCheck.before(vacationStartCheck)) {
                     Toast.makeText(this,
                             "Excursion cannot occur before vacation begins",
                             Toast.LENGTH_LONG).show();
                     return true;
                 }
-                //checks the excursion occurs before vacation end date
                 if (dateCheck != null && dateCheck.after(vacationEndCheck)) {
                     Toast.makeText(this,
                             "Excursion cannot occur after vacation ends",
                             Toast.LENGTH_LONG).show();
                     return true;
                 }
-            }
-            //catch all other date exceptions
-            catch (ParseException e) {
+            } catch (ParseException e) {
                 Toast.makeText(this,
                         "Invalid date",
                         Toast.LENGTH_LONG).show();
                 return true;
             }
 
-            Excursion excursion;
-            if (excursionID == -1) {
-                if (repository.getmAllExcursions().isEmpty())
-                    excursionID = 1;
-                else
-                    excursionID = repository.getmAllExcursions()
-                            .get(repository.getmAllExcursions().size() - 1)
-                            .getExcursionID() + 1;
+            Executors.newSingleThreadExecutor().execute(() -> {
+                Excursion excursion;
+                int currentExcursionID = excursionID;
 
-                excursion = new Excursion(
-                        excursionID,
-                        editExcursionTitle.getText().toString(),
-                        editExcursionDate.getText().toString(),
-                        vacationID
-                );
-                repository.insert(excursion);
-                this.finish();
-            }
+                if (currentExcursionID == -1) {
+                    if (repository.getmAllExcursions().isEmpty())
+                        currentExcursionID = 1;
+                    else
+                        currentExcursionID = repository.getmAllExcursions()
+                                .get(repository.getmAllExcursions().size() - 1)
+                                .getExcursionID() + 1;
 
-            //update excursion
-            else {
-                excursion = new Excursion(
-                        excursionID,
-                        editExcursionTitle.getText().toString(),
-                        editExcursionDate.getText().toString(),
-                        vacationID
-                );
-                repository.update(excursion);
-                this.finish();
-            }
+                    excursion = new Excursion(
+                            currentExcursionID, title, excursionDate, vacationID
+                    );
+                    repository.insert(excursion);
+
+                } else { // update excursion
+                    excursion = new Excursion(
+                            currentExcursionID, title, excursionDate, vacationID
+                    );
+                    repository.update(excursion);
+                }
+
+                // Finish the activity on the main thread
+                runOnUiThread(this::finish);
+            });
+
+            return true;
         }
 
         //delete excursion
         if (item.getItemId() == R.id.excursion_delete) {
-            Excursion excursion;
-            excursion = new Excursion(
+            final Excursion excursion = new Excursion(
                     excursionID,
                     editExcursionTitle.getText().toString(),
                     editExcursionDate.getText().toString(),
                     vacationID
             );
-            Toast.makeText(ExcursionDetails.this,
-                    "Excursion Deleted.",
-                    Toast.LENGTH_LONG).show();
 
-            repository.delete(excursion);
-            this.finish();
+
+            Executors.newSingleThreadExecutor().execute(() -> {
+                repository.delete(excursion);
+
+                // UI updates must run on the main thread
+                runOnUiThread(() -> {
+                    Toast.makeText(ExcursionDetails.this,
+                            "Excursion Deleted.",
+                            Toast.LENGTH_LONG).show();
+                    this.finish(); // Finish after confirming deletion
+                });
+            });
+
+            return true;
         }
 
-        //alert functionality for excursion
+        //alert functionality for excursion (No database calls, safe to keep on main thread)
         if (item.getItemId() == R.id.excursion_notify) {
             String dateExcursionStart = editExcursionDate.getText().toString();
 
@@ -185,28 +188,31 @@ public class ExcursionDetails extends AppCompatActivity {
             }
 
             //excursion start alert
-            Long trigger = notifyExcursionStart.getTime();
-            Intent intent = new Intent(ExcursionDetails.this, MyReceiver.class);
-            String excursionNotify = "Your excursion: " + editExcursionTitle.getText().toString() + " is today";
-            intent.putExtra("notification", excursionNotify);
+            if (notifyExcursionStart != null) {
+                Long trigger = notifyExcursionStart.getTime();
+                Intent intent = new Intent(ExcursionDetails.this, MyReceiver.class);
+                String excursionNotify = "Your excursion: " + editExcursionTitle.getText().toString() + " is today";
+                intent.putExtra("notification", excursionNotify);
 
-            PendingIntent sender = PendingIntent.getBroadcast(
-                    ExcursionDetails.this,
-                    ++MainActivity.numAlert,
-                    intent,
-                    PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent sender = PendingIntent.getBroadcast(
+                        ExcursionDetails.this,
+                        ++MainActivity.numAlert,
+                        intent,
+                        PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_ONE_SHOT);
 
-            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
-
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+            }
+            return true;
         }
+
         //back arrow navigation
         if (item.getItemId() == android.R.id.home) {
             this.finish();
             return true;
         }
 
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     //date format validation
@@ -237,6 +243,5 @@ public class ExcursionDetails extends AppCompatActivity {
             }
         }, year, month, dayOfMonth);
         datePickerDialog.show();
-
     }
 }

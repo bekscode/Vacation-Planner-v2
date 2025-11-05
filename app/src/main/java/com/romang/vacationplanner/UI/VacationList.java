@@ -47,13 +47,11 @@ public class VacationList extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.vacationListRecyclerView);
         repository = new Repository(getApplication());
-        List<Vacation> allVacations = repository.getmAllVacations();
+        RecyclerView recyclerView = findViewById(R.id.vacationListRecyclerView);
         vacationAdapter = new VacationAdapter(this);
         recyclerView.setAdapter(vacationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        vacationAdapter.setVacations(allVacations);
 
         //generate report
         Button generateButton = findViewById(R.id.reportButton);
@@ -64,7 +62,6 @@ public class VacationList extends AppCompatActivity {
                 generateReport(vacations);
             });
         });
-
     }
 
     //menu search option
@@ -82,7 +79,6 @@ public class VacationList extends AppCompatActivity {
                 public boolean onQueryTextSubmit(String query) {
                     return false;
                 }
-
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     vacationAdapter.filter(newText);
@@ -95,19 +91,12 @@ public class VacationList extends AppCompatActivity {
 
     //generate a report from the vacations table
     private void generateReport(List<Vacation> vacations) {
-        Intent intent = getIntent(vacations);
-
+        Intent intent = buildReportIntent(vacations);
         runOnUiThread(() -> startActivity(intent));
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
     }
 
     @NonNull
-    private Intent getIntent(List<Vacation> vacations) {
+    private Intent buildReportIntent(List<Vacation> vacations) {
         StringBuilder reportBuilder = new StringBuilder();
         reportBuilder.append("Vacation Title, Start Date, End Date\n");
 
@@ -123,15 +112,10 @@ public class VacationList extends AppCompatActivity {
         return intent;
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         List<Vacation> allVacations = repository.getmAllVacations();
-        RecyclerView recyclerView = findViewById(R.id.vacationListRecyclerView);
-        vacationAdapter = new VacationAdapter(this);
-        recyclerView.setAdapter(vacationAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         vacationAdapter.setVacations(allVacations);
     }
 }
