@@ -12,6 +12,8 @@ import com.romang.vacationplanner.entities.Vacation;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.Callable;
 
 public class Repository {
     private VacationDAO mVacationDAO;
@@ -21,8 +23,17 @@ public class Repository {
     private List<Excursion> mAllExcursions;
     private List<Excursion> mAssociatedExcursions;
 
-    private static int NUMBER_OF_THREADS = 4;
+    private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
+    public Repository(Application application) {
+        VacationDatabaseBuilder db = VacationDatabaseBuilder.getDatabase(application);
+        mVacationDAO = db.vacationDAO();
+        mExcursionDAO = db.excursionDAO();
+        mUserDAO = db.userDAO();
+    }
+
+    // ==================== VACATION METHODS ====================
 
     public Vacation getVacationById(int vacationID) {
         for (Vacation v : getmAllVacations()) {
@@ -33,14 +44,6 @@ public class Repository {
         return null;
     }
 
-    public Repository(Application application) {
-        VacationDatabaseBuilder db = VacationDatabaseBuilder.getDatabase(application);
-        mVacationDAO = db.vacationDAO();
-        mExcursionDAO = db.excursionDAO();
-        mUserDAO = db.userDAO();
-    }
-
-    //retrieves vacations or creates new database as needed
     public List<Vacation> getmAllVacations() {
         databaseExecutor.execute(() -> {
             mAllVacations = mVacationDAO.getAllVacations();
@@ -53,7 +56,6 @@ public class Repository {
         return mAllVacations;
     }
 
-    //insert vacation method
     public void insert(Vacation vacation) {
         databaseExecutor.execute(() -> {
             mVacationDAO.insert(vacation);
@@ -65,7 +67,6 @@ public class Repository {
         }
     }
 
-    //update vacation method
     public void update(Vacation vacation) {
         databaseExecutor.execute(() -> {
             mVacationDAO.update(vacation);
@@ -77,7 +78,6 @@ public class Repository {
         }
     }
 
-    //delete vacation method
     public void delete(Vacation vacation) {
         databaseExecutor.execute(() -> {
             mVacationDAO.delete(vacation);
@@ -89,7 +89,8 @@ public class Repository {
         }
     }
 
-    //retrieves excursions or creates new database as needed
+    // ==================== EXCURSION METHODS ====================
+
     public List<Excursion> getmAllExcursions() {
         databaseExecutor.execute(() -> {
             mAllExcursions = mExcursionDAO.getAllExcursions();
@@ -102,7 +103,6 @@ public class Repository {
         return mAllExcursions;
     }
 
-    //retrieve only excursions associated with a specific vacation id
     public List<Excursion> getmAssociatedExcursions(int vacationID) {
         databaseExecutor.execute(() -> {
             mAssociatedExcursions = mExcursionDAO.getAssociatedExcursions(vacationID);
@@ -115,7 +115,6 @@ public class Repository {
         return mAssociatedExcursions;
     }
 
-    //insert excursion method
     public void insert(Excursion excursion) {
         databaseExecutor.execute(() -> {
             mExcursionDAO.insert(excursion);
@@ -127,7 +126,6 @@ public class Repository {
         }
     }
 
-    //update excursion method
     public void update(Excursion excursion) {
         databaseExecutor.execute(() -> {
             mExcursionDAO.update(excursion);
@@ -139,7 +137,6 @@ public class Repository {
         }
     }
 
-    //delete excursion method
     public void delete(Excursion excursion) {
         databaseExecutor.execute(() -> {
             mExcursionDAO.delete(excursion);
@@ -150,18 +147,81 @@ public class Repository {
             throw new RuntimeException(e);
         }
     }
-    //insert user method
+
+    // ==================== USER METHODS ====================
+
+
     public void insertUser(User user) {
         databaseExecutor.execute(() -> mUserDAO.insert(user));
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+
+    public void updateUser(User user) {
+        databaseExecutor.execute(() -> mUserDAO.update(user));
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void deleteUser(User user) {
+        databaseExecutor.execute(() -> mUserDAO.delete(user));
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public User getUserByUsername(String username) {
-        return mUserDAO.getUserByUsername(username);
+        try {
+            Future<User> future = databaseExecutor.submit(new Callable<User>() {
+                @Override
+                public User call() {
+                    return mUserDAO.getUserByUsername(username);
+                }
+            });
+            return future.get();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
+
+
+    public User getUserById(int userId) {
+        try {
+            Future<User> future = databaseExecutor.submit(new Callable<User>() {
+                @Override
+                public User call() {
+                    return mUserDAO.getUserById(userId);
+                }
+            });
+            return future.get();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public List<User> getAllUsers() {
-        return mUserDAO.getAllUsers();
+        try {
+            Future<List<User>> future = databaseExecutor.submit(new Callable<List<User>>() {
+                @Override
+                public List<User> call() {
+                    return mUserDAO.getAllUsers();
+                }
+            });
+            return future.get();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
-
 }

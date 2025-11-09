@@ -1,23 +1,39 @@
 package com.romang.vacationplanner.utils;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordUtils {
 
-    public static String hashPassword(String password) {
+
+    private static final int DEFAULT_LOG_ROUNDS = 12;
+
+
+    public static String hashPassword(String plainTextPassword) {
+        if (plainTextPassword == null || plainTextPassword.isEmpty()) {
+            throw new IllegalArgumentException("Password required");
+        }
+        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt(DEFAULT_LOG_ROUNDS));
+    }
+
+    public static String hashPassword(String plainTextPassword, int logRounds) {
+        if (plainTextPassword == null || plainTextPassword.isEmpty()) {
+            throw new IllegalArgumentException("Password required");
+        }
+        if (logRounds < 4 || logRounds > 31) {
+            throw new IllegalArgumentException("Log rounds must be between 4 and 31");
+        }
+        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt(logRounds));
+    }
+
+    // Verify against hashed password
+    public static boolean verifyPassword(String plainTextPassword, String hashedPassword) {
+        if (plainTextPassword == null || hashedPassword == null) {
+            return false;
+        }
         try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                hexString.append(String.format("%02x", b));
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
+            return BCrypt.checkpw(plainTextPassword, hashedPassword);
+        } catch (IllegalArgumentException e) {
+            return false;
         }
     }
 }

@@ -42,11 +42,24 @@ dependencies {
     implementation libs.annotation
     implementation libs.lifecycle.livedata.ktx
     implementation libs.lifecycle.viewmodel.ktx
-    testImplementation libs.junit
+    implementation 'org.mindrot:jbcrypt:0.4'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
     //Room components
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+}
+tasks.withType(Test).configureEach {task ->
+    if (task.name.endsWith("UnitTest")) {
+        task.useJUnitPlatform()
+
+        task.testLogging {
+            events "passed", "skipped", "failed"
+            showStandardStreams = true
+        }
+    }
 }
