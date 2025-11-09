@@ -21,6 +21,15 @@
     <string name="register_pw">Password</string>
     <string name="register_confirm_pw">Confirm Password</string>
 
+    <!-- report -->
+    <string name="vacation_report_title">Vacation Report</string>
+    <string name="report_subtitle">All vacations overview</string>
+    <string name="report_icon">Report icon</string>
+    <string name="no_data">No data available</string>
+    <string name="no_report_data">No Report Data</string>
+    <string name="no_report_message">There is no vacation data available to display. Add some vacations to generate a report.</string>
+    <string name="dl_button">Download Report</string>
+
     <!-- vacation details -->
     <string name="vacation_title">Vacation Title</string>
     <string name="hotel_name">Hotel Name</string>
@@ -28,9 +37,6 @@
     <string name="vacation_end">End Date</string>
     <string name="vacation_associated_ex">Associated Excursions</string>
     <string name="add_ex_button">Add Excursion</string>
-
-    <!-- report -->
-    <string name="dl_button">Download PDF</string>
 
     <!-- excursion details -->
     <string name="excursion_details">My Excursion</string>

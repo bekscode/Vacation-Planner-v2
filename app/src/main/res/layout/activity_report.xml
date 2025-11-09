@@ -2,61 +2,162 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/misty_bg"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@drawable/misty_bg">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="338dp"
-        android:layout_height="595dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:layout_weight="1"
-        android:paddingVertical="90dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!-- Header Card with Title -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/headerCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@color/darkGreen"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-    </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/vacation_report_title"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/report_subtitle"
+                android:textColor="@color/offWhite"
+                android:textSize="14sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Report Table Card with ScrollView -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/reportCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/downloadButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerCard">
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="vertical">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:scrollbars="horizontal">
+
+                <TableLayout
+                    android:id="@+id/reportTable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:stretchColumns="*"
+                    android:divider="@android:color/darker_gray"
+                    android:showDividers="middle">
+                </TableLayout>
+
+            </HorizontalScrollView>
+
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Empty State (when no data) -->
+    <LinearLayout
+        android:id="@+id/emptyStateLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/reportCard"
+        app:layout_constraintEnd_toEndOf="@+id/reportCard"
+        app:layout_constraintStart_toStartOf="@+id/reportCard"
+        app:layout_constraintTop_toTopOf="@+id/reportCard">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/rounded_download_24"
+            android:alpha="0.3"
+            android:contentDescription="@string/no_data"
+            app:tint="@color/darkGreen" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/no_report_data"
+            android:textColor="@color/darkGreen"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/no_report_message"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:paddingHorizontal="32dp" />
+    </LinearLayout>
+
+    <!-- Download Button -->
     <Button
         android:id="@+id/downloadButton"
         style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/darkGreen"
-        android:drawableTint="@color/white"
+        android:paddingVertical="14dp"
         android:text="@string/dl_button"
         android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:icon="@drawable/rounded_download_24"
+        app:iconGravity="textStart"
+        app:iconSize="24dp"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:rippleColor="#40FFFFFF" />
-
-    <TableLayout
-        android:id="@+id/reportTable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:stretchColumns="*"
-        app:layout_constraintEnd_toEndOf="@+id/scrollView2"
-        app:layout_constraintStart_toStartOf="@+id/scrollView2"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2">
-
-    </TableLayout>
+        app:rippleColor="#40FFFFFF"
+        app:cornerRadius="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
