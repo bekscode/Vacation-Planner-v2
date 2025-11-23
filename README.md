@@ -1,120 +1,99 @@
-# Vacation Planner
+# Explorer’s Buddy (Vacation Planner)
 
-## Purpose: 
+![App Status](https://img.shields.io/badge/Status-Completed-success) ![Platform](https://img.shields.io/badge/Platform-Android-green) ![Language](https://img.shields.io/badge/Language-Java-orange)
 
-The purpose of this mobile application is to track all of your vacations and excursions in one easy to use app. 
+## Overview
+Explorer’s Buddy is a native Android application designed to help users track vacations, manage excursions, and maintain a travel history. It solves the problem of scattered travel details by centralizing itineraries, alerts, and reporting into a single interface.
 
-You can create an unlimited amount of vacations and add the details of each vacation. The vacation's details include a *Title* for the vacation, the *Hotel* you will be staying in, the *Start Date*, the *End Date*, and any Associated Excursions you will be attending during the vacation. 
+This project was developed as a Capstone for my Software Engineering degree at WGU, demonstrating full-cycle mobile development from UI design to APK deployment.
 
-The app includes a *Notify* option for setting up notifications to alert you when a vacation is starting or ending, or when an excursion is starting. 
+## Key Features
+* **User Authentication:** Secure registration and login functionality with input validation.
+* **Itinerary Management:** Full CRUD (Create, Read, Update, Delete) capabilities for Vacations and associated Excursions.
+* **Smart Alerts:** Automated notifications via the `AlarmManager` API for trip start/end dates.
+* **Reporting:** Generates and downloads detailed PDF reports of vacation history.
+* **Sharing:** Integrated `Intent` sharing to send trip details to external apps (SMS, Email, Social).
+* **Search & Filter:** Dynamic search logic to filter upcoming trips in real-time.
 
-The app also includes a *Share* option for sharing all the details of your vacation with your friends and family, and a *Create Report* option for creating a downloadable PDF file of your saved vacations.  
+## Tech Stack
+* **Language:** Java
+* **UI Toolkit:** Android Views (XML Layouts)
+* **Architecture:** MVVM (Model-View-ViewModel) pattern
+* **Database:** Room Persistence Library
+* **Version Control:** Git / GitLab / GitHub
+* **Build Tool:** Gradle
+* **Testing:** JUnit (Unit Testing)
 
-## Use Instructions:
+## Screenshots
+|        Login Screen        |      Vacation List       |          PDF Report          |
+|:--------------------------:|:------------------------:|:----------------------------:|
+| ![Login](assets/login.png) | ![List](assets/list.png) | ![Report](assets/report.png) |
 
-To use the app start by registering a new account, then tapping the *Login* button will bring you to the *My Vacations* screen where you can begin adding your vacations and excursions.  
+## Installation & Setup
+**Prerequisites:**
+* Android Studio Ladybug (or higher)
+* Minimum SDK: API 26 (Android 8.0)
+* Target SDK: API 36 (Android 16 Developer Preview)
 
-## Registration and Login:
+**Steps:**
+1.  Clone the repository:
+    ```bash
+    git clone [https://github.com/bekscode/Vacation-Planner-v2.git](https://github.com/bekscode/Vacation-Planner-v2.git)
+    ```
+2.  Open the project in **Android Studio**.
+3.  Sync Gradle files.
+4.  Run on an Emulator or physical device connected via USB.
 
-### **Registering an Account**
+---
 
-1. Open the app and you will be greeted by the *Sign In* screen.
-2. Towards the bottom of the screen you will see *Don't have an account?* *Sign Up*.
-3. Tap on *Sign Up*
-4. Enter the *Username* you would like to use. Please note the username must be unique.
-5. Enter the *Password* you would like to use. Please note the password must be at least eight characters long, contain at least one uppercase letter, one lowercase letter, and one number.
-6. Enter the password again to confirm.
-7. Tap the *Register* button to create your account and be redirected to the *Sign In* screen.
+## User Guide
+<details>
+<summary><strong>Registration and Login (Click to Expand)</strong></summary>
 
-### **Logging In**
+### Registering an Account
+1. Open the app to the *Sign In* screen.
+2. Tap *Sign Up*.
+3. Enter a unique *Username*.
+4. Enter a *Password* (Must be 8+ chars, 1 uppercase, 1 lowercase, 1 number).
+5. Confirm password and tap *Register*.
 
-1. Enter your *Username* and *Password*.
-2. Tap the *Login* button.
+### Logging In
+1. Enter your credentials and tap *Login* to access the *My Vacations* dashboard.
+</details>
 
-## Managing Your Vacations:
+<details>
+<summary><strong>Managing Vacations & Excursions</strong></summary>
 
-### **Creating a Vacation**
+### Vacations
+* **Create:** Tap the `+ Add Vacation` button, enter Title, Hotel, Start/End Dates, and Save.
+* **Update:** Tap an existing vacation, edit fields, and tap Save.
+* **Delete:** Select a vacation -> Menu -> *Delete Vacation*.
+* **Search:** Tap the magnifying glass and type to filter results.
 
-1. From *My Vacations* tap on the + button on the bottom right corner of the screen.  
-2. Enter a title for your vacation by tapping on the section that reads *Enter a vacation title*.  
-3. Enter the name of the hotel you will be staying at by tapping on the section that reads *Enter a hotel name*.  
-4. Enter the date your vacation starts by tapping the field next to *Start Date*.  
-5. Enter the date your vacation ends by tapping the field next to *End Date*.  
-6. To save your vacation details tap on the save icon in the top right corner of the menu bar.  
-7. After saving your vacation you will be returned to the *My Vacations* screen where your newly created vacation will be listed.  
+### Excursions
+* **Add:** Inside a Vacation, tap the `+ Add Excursion` button to add an excursion title and date.
+* **Delete:** Inside a Vacation, select Excursion -> Menu -> *Delete Excursion*.
+</details>
 
-### **Updating a Vacation**
+<details>
+<summary><strong>Advanced Features (Reports & Sharing)</strong></summary>
 
-1. From the *My Vacations* screen tap on the vacation to be updated.  
-2. Tap on any fields that needs to be updated.  
-3. Once all fields have been updated tap on the save icon in the top right corner of the menu bar.  
-4. After saving you will be returned to the *My Vacations* screen where your updated vacation will be listed.  
+### Notifications
+Select a vacation or excursion -> Menu -> *Notify*. Alerts will trigger based on the system clock.
 
-### **Deleting a Vacation**
+### Sharing
+Select a vacation -> Menu -> *Share*. Uses Android System Intent to share details via text, email, or social media.
 
-1. From the *My Vacations* screen tap on the vacation to be deleted.  
-2. Tap on the vacation to be deleted.  
-3. Tap on the menu in the top right corner of the screen and tap on the *Delete Vacation* option.  
-4. After deleting you will be returned to the *My Vacations* screen. The vacation will no longer appear on the list.  
+### PDF Reports
+Tap *Create Report* on the dashboard to generate a downloadable PDF of all saved data using the Android PDFDocument API.
+</details>
 
-### **Searching for a Vacation**
+---
 
-1. From the *My Vacations* screen tap on the magnifying glass icon in the upper right corner of the menu bar to open the search field.
-2. Start typing into the search field. As you type the list will begin filtering the results.
-
-### **Setting Vacation Notifications**
-
-1. From the *My Vacations* screen tap on the vacation you would like to receive notifications for.  
-2. Tap on the menu in the top right corner of the screen and tap on the *Notify* option.  
-3. You will now receive a notification when your vacation starts and when your vacation ends.  
-
-### **Sharing Vacation Details**
-
-1. From the *My Vacations* screen tap on the vacation you would like to share.  
-2. Tap on the menu in the top right corner of the screen and tap on the *Share* option.  
-3. Select how you want to share the vacation details from the options that appear on screen.  
-
-### **Creating a Vacations Report**
-
-1. From the *My Vacations* screen tap on the *Create Report* button on the bottom left of the screen.
-2. On the *Vacations Report* screen you'll see all vacations currently saved, as well as the start and end dates.
-3. To download a copy of this report, tap on the *Download Report* button on the bottom of the screen.
-4. Your downloaded report will open from your device's PDF viewer. From here you can save and share the report using the PDF viewer's available options. 
-
-## Managing Your Excursions:
-
-### **Creating an Excursion**
-
-1. From the *My Vacations* screen tap on the vacation you would like to add an excursion to.
-2. Tap on the + button on the bottom right of the *Vacation Details* screen.  
-3. Enter a title for your excursion by tapping on the section that reads *Enter an excursion title*.  
-4. Enter the date of your excursion by tapping the field next to *Date*.  
-5. To save your excursion tap on the save icon in the top right corner of the menu bar.  
-6. After saving your excursion you will be returned to the *Vacation Details* screen where your newly created excursion will be listed in the *Associated Excursions* list.  
-
-### **Updating an Excursion**
-
-1. From the *My Vacations* screen tap on the vacation the excursion is associated with.  
-2. From the *Vacation Details* screen tap on the excursion to be updated.  
-3. Tap on any fields that needs to be updated.  
-4. Once all fields have been updated tap on the save icon in the top right corner of the menu bar.  
-5. After saving you will be returned to the *My Vacations* screen where your updated vacation will be listed.  
-
-### **Deleting an Excursion**
-
-1. From the *My Vacations* screen tap on the vacation the excursion is associated with.  
-2. From the *Vacation Details* screen tap on the excursion to be deleted.  
-3. Tap on the menu in the top right corner of the screen and tap on the *Delete Excursion* option.  
-4. After deleting you will be returned to the *Vacation Details* screen. The excursion will no longer appear on the *Associated Excursions* list.
-
-### **Setting Excursion Notifications**
-
-1. From the *My Vacations* screen tap on the vacation the excursion is associated with.  
-2. From the *Vacation Details* screen tap on the excursion you would like to receive notifications for.  
-2. Tap on the menu in the top right corner of the screen and tap on the *Notify* option.  
-3. You will now receive a notification when your excursion starts.  
+## Author
+**Rebekah Romang**
+* https://www.linkedin.com/in/rebekahromang/
 
 
-## APK Version:
-Android Version 16  
-API 36  
+## License
+This project is for educational purposes as part of the WGU Software Engineering program.
